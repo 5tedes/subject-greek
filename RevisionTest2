@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek A1 Practice Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .option {
+            margin: 8px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .option:hover {
+            background: #e9ecef;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover {
+            transform: scale(1.02);
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .result.show {
+            display: block;
+        }
+        .result.pass {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .result.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        .correct-answer {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 5px;
+            display: none;
+        }
+        .correct-answer.show {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Τεστ Ελληνικών Επιπέδου Α1</h1>
+        <p class="subtitle">Greek A1 Practice Test - 50 Points Total</p>
+        
+        <div class="instructions">
+            <strong>📝 Instructions:</strong> Complete all sections of the test. Each section tests different skills at A1 level.
+        </div>
+
+        <form id="testForm">
+            <!-- Section 1: Introductions -->
+            <div class="section">
+                <div class="section-title">Μέρος 1: Ερωτήσεις (Questions - 15 points)</div>
+                
+                <div class="question">
+                    <div class="question-number">1. How do you ask "What is your name?" in informal Greek? (3 points)</div>
+                    <input type="text" name="q1" placeholder="Πώς...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">2. Translate to Greek: "I am 20 years old" (3 points)</div>
+                    <input type="text" name="q2" placeholder="Your answer...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">3. How do you ask "How old are you?" in formal Greek? (3 points)</div>
+                    <input type="text" name="q3" placeholder="Πώς...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">4. Complete the introduction: "Με λένε Μαρία. _______ πολύ." (Nice to meet you) (3 points)</div>
+                    <input type="text" name="q4" placeholder="One word...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">5. Translate to Greek: "I am from Greece" (3 points)</div>
+                    <input type="text" name="q5" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <!-- Section 2: Personal Information -->
+            <div class="section">
+                <div class="section-title">Μέρος 2: Προσωπικά στοιχεία (Personal Information - 15 points)</div>
+                
+                <div class="question">
+                    <div class="question-number">6. Fill in with the correct word: "Πού _______;" (Where do you live? - informal) (3 points)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q6" value="a"> μένω</label>
+                        <label class="option"><input type="radio" name="q6" value="b"> μένεις</label>
+                        <label class="option"><input type="radio" name="q6" value="c"> μένει</label>
+                        <label class="option"><input type="radio" name="q6" value="d"> μένουμε</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">7. How do you say "I live in Athens"? (3 points)</div>
+                    <input type="text" name="q7" placeholder="Μένω...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">8. Choose the correct article: Μένω _____ Λονδίνο (3 points)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q8" value="a"> στην</label>
+                        <label class="option"><input type="radio" name="q8" value="b"> στο</label>
+                        <label class="option"><input type="radio" name="q8" value="c"> στη</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">9. Translate to English: "Πού μένει η Μαρία;" (3 points)</div>
+                    <input type="text" name="q9" placeholder="Your answer...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">10. How do you say "in the city" in Greek? (3 points)</div>
+                    <input type="text" name="q10" placeholder="Your answer...">
+                </div>
+            </div>
+
+            <!-- Section 3: Numbers -->
+            <div class="section">
+                <div class="section-title">Μέρος 3: Αριθμοί 0-20 (Numbers - 10 points)</div>
+                
+                <div class="question">
+                    <div class="question-number">Write the following numbers in Greek words:</div>
+                    <table>
+                        <tr>
+                            <td>11. Seven (7)</td>
+                            <td><input type="text" name="q11" placeholder="..."></td>
+                        </tr>
+                        <tr>
+                            <td>12. Twelve (12)</td>
+                            <td><input type="text" name="q12" placeholder="..."></td>
+                        </tr>
+                        <tr>
+                            <td>13. Fifteen (15)</td>
+                            <td><input type="text" name="q13" placeholder="..."></td>
+                        </tr>
+                        <tr>
+                            <td>14. Twenty (20)</td>
+                            <td><input type="text" name="q14" placeholder="..."></td>
+                        </tr>
+                        <tr>
+                            <td>15. Zero (0)</td>
+                            <td><input type="text" name="q15" placeholder="..."></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 4: Verb Conjugation -->
+            <div class="section">
+                <div class="section-title">Μέρος 4: Ρήματα σε-ω (Verbs - 10 points)</div>
+                
+                <div class="question">
+                    <div class="question-number">16. Conjugate είμαι (to be): Εγώ ______, εσύ ______, αυτός ______ (3 points)</div>
+                    <input type="text" name="q16" placeholder="Three words separated by commas...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">17. Fill in: "Εμείς _______ στην Αθήνα." (We live in Athens) (2 points)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q17" value="a"> μένω</label>
+                        <label class="option"><input type="radio" name="q17" value="b"> μένεις</label>
+                        <label class="option"><input type="radio" name="q17" value="c"> μένουμε</label>
+                        <label class="option"><input type="radio" name="q17" value="d"> μένουν</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">18. Complete: "Η Μαρία και ο Γιώργος _______ στη Θεσσαλονίκη." (they live) (2 points)</div>
+                    <input type="text" name="q18" placeholder="One word...">
+                </div>
+
+                <div class="question">
+                    <div class="question-number">19. Fill in: "Εσείς _______ 30 χρονών;" (Are you 30 years old? - formal) (3 points)</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q19" value="a"> είμαι</label>
+                        <label class="option"><input type="radio" name="q19" value="b"> είσαι</label>
+                        <label class="option"><input type="radio" name="q19" value="c"> είστε</label>
+                        <label class="option"><input type="radio" name="q19" value="d"> είναι</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="gradeTest()">Submit Test / Υποβολή Τεστ</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: ['πώς σε λένε', 'πως σε λενε'],
+            q2: ['είμαι 20 χρονών', 'είμαι είκοσι χρονών', 'ειμαι 20 χρονων', 'ειμαι είκοσι χρονών'],
+            q3: ['πώς σας λένε', 'πόσο χρονών είστε', 'πως σας λενε', 'ποσο χρονων είστε', 'ποσο χρονων ειστε'],
+            q4: ['χαίρω', 'χαιρω'],
+            q5: ['είμαι από την ελλάδα', 'είμαι από ελλάδα', 'ειμαι από την ελλαδα', 'ειμαι από ελλαδα'],
+            q6: 'b',
+            q7: ['μένω στην αθήνα', 'μενω στην αθηνα'],
+            q8: 'b',
+            q9: ['where does maria live', 'where does maria live?', 'where does mary live'],
+            q10: ['στην πόλη', 'στη πόλη', 'στην πολη', 'στη πολη'],
+            q11: ['εφτά', 'επτά', 'εφτα', 'επτα'],
+            q12: ['δώδεκα', 'δωδεκα'],
+            q13: ['δεκαπέντε', 'δεκαπεντε'],
+            q14: ['είκοσι', 'εικοσι'],
+            q15: ['μηδέν', 'μηδεν'],
+            q16: ['είμαι, είσαι, είναι', 'ειμαι, εισαι, ειναι', 'είμαι είσαι είναι', 'ειμαι εισαι ειναι'],
+            q17: 'c',
+            q18: ['μένουν', 'μενουν'],
+            q19: 'c'
+        };
+
+        const correctAnswersDisplay = {
+            q1: 'Πώς σε λένε;',
+            q2: 'Είμαι 20/είκοσι χρονών',
+            q3: 'Πόσο χρονών είστε;',
+            q4: 'Χαίρω',
+            q5: 'Είμαι από την Ελλάδα',
+            q6: 'μένεις',
+            q7: 'Μένω στην Αθήνα',
+            q8: 'στο',
+            q9: 'Where does Maria live?',
+            q10: 'στην πόλη / στη πόλη',
+            q11: 'εφτά / επτά',
+            q12: 'δώδεκα',
+            q13: 'δεκαπέντε',
+            q14: 'είκοσι',
+            q15: 'μηδέν',
+            q16: 'είμαι, είσαι, είναι',
+            q17: 'μένουμε',
+            q18: 'μένουν',
+            q19: 'είστε'
+        };
+
+        function normalizeText(text) {
+            return text.toLowerCase()
+                .trim()
+                .replace(/[;,.!?]/g, '')
+                .replace(/\s+/g, ' ');
+        }
+
+        function gradeTest() {
+            const form = document.getElementById('testForm');
+            let score = 0;
+            const maxScore = 50;
+
+            for (let i = 1; i <= 19; i++) {
+                const questionNum = `q${i}`;
+                const userAnswer = form.elements[questionNum];
+                const questionDiv = userAnswer.closest('.question');
+                
+                let existingFeedback = questionDiv.querySelector('.correct-answer');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+
+                let isCorrect = false;
+
+                if (userAnswer.type === 'text') {
+                    const normalized = normalizeText(userAnswer.value);
+                    const correctAnswers = answers[questionNum];
+                    
+                    if (Array.isArray(correctAnswers)) {
+                        isCorrect = correctAnswers.some(ans => normalizeText(ans) === normalized);
+                    } else {
+                        isCorrect = normalizeText(correctAnswers) === normalized;
+                    }
+                    
+                    if (isCorrect) {
+                        if (i <= 5) score += 3;
+                        else if (i <= 10) score += 3;
+                        else if (i <= 15) score += 2;
+                        else if (i === 16) score += 3;
+                        else if (i === 17 || i === 19) score += 2;
+                        else if (i === 18) score += 2;
+                        
+                        userAnswer.style.borderColor = '#28a745';
+                        userAnswer.style.background = '#d4edda';
+                    } else {
+                        userAnswer.style.borderColor = '#dc3545';
+                        userAnswer.style.background = '#f8d7da';
+                        
+                        const feedback = document.createElement('div');
+                        feedback.className = 'correct-answer show';
+                        feedback.innerHTML = `✓ Correct answer: ${correctAnswersDisplay[questionNum]}`;
+                        questionDiv.appendChild(feedback);
+                    }
+                } else if (userAnswer.type === 'radio') {
+                    const selected = form.querySelector(`input[name="${questionNum}"]:checked`);
+                    if (selected && selected.value === answers[questionNum]) {
+                        isCorrect = true;
+                        if (i === 6 || i === 8) score += 3;
+                        else if (i === 17 || i === 19) score += 2;
+                        
+                        selected.parentElement.style.background = '#d4edda';
+                        selected.parentElement.style.borderLeft = '4px solid #28a745';
+                    } else {
+                        if (selected) {
+                            selected.parentElement.style.background = '#f8d7da';
+                            selected.parentElement.style.borderLeft = '4px solid #dc3545';
+                        }
+                        
+                        const correctOption = form.querySelector(`input[name="${questionNum}"][value="${answers[questionNum]}"]`);
+                        if (correctOption) {
+                            const feedback = document.createElement('div');
+                            feedback.className = 'correct-answer show';
+                            feedback.textContent = `✓ Correct: ${correctOption.parentElement.textContent.trim()}`;
+                            questionDiv.appendChild(feedback);

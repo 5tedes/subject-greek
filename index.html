@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek A1 Flashcards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .flashcard {
+            perspective: 1000px;
+            height: 300px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .card-main {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-sub {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        .counter {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .category-filter {
+            text-align: center;
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+        }
+        .hint {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ελληνικά Επίπεδο Α1</h1>
+        <p class="subtitle">Greek A1 Flashcards - Click to flip!</p>
+        
+        <div class="category-filter">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="intro">Introductions</option>
+                <option value="location">Location & Living</option>
+                <option value="verbs">Verb Conjugation</option>
+                <option value="numbers">Numbers</option>
+            </select>
+        </div>
+
+        <div class="counter" id="counter">Card 1 of 40</div>
+        
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <div class="card-main">Loading...</div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="card-main">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="hint">💡 Tip: Click the card to see the answer</p>
+
+        <div class="controls">
+            <button onclick="previousCard()">⬅️ Previous</button>
+            <button onclick="shuffleCards()">🔀 Shuffle</button>
+            <button onclick="nextCard()">Next ➡️</button>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            // Introductions
+            {category: 'intro', front: 'How do you say "Hello"?', back: 'Γεια σου (informal)\nΓεια σας (formal)'},
+            {category: 'intro', front: 'Πώς σε λένε;', back: 'What is your name?\n(informal)'},
+            {category: 'intro', front: 'Πώς σας λένε;', back: 'What is your name?\n(formal)'},
+            {category: 'intro', front: 'How do you say "My name is..."?', back: 'Με λένε...\nor\nΤο όνομά μου είναι...'},
+            {category: 'intro', front: 'Πόσο χρονών είσαι;', back: 'How old are you?\n(informal)'},
+            {category: 'intro', front: 'Πόσο χρονών είστε;', back: 'How old are you?\n(formal)'},
+            {category: 'intro', front: 'How do you say "I am 25 years old"?', back: 'Είμαι 25 χρονών\nor\nΕίμαι είκοσι πέντε χρονών'},
+            {category: 'intro', front: 'Χαίρω πολύ', back: 'Nice to meet you\n(Pleased to meet you)'},
+            {category: 'intro', front: 'Από πού είσαι;', back: 'Where are you from?\n(informal)'},
+            {category: 'intro', front: 'Είμαι από...', back: 'I am from...'},
+            
+            // Location & Living
+            {category: 'location', front: 'Πού μένεις;', back: 'Where do you live?\n(informal)'},
+            {category: 'location', front: 'Πού μένετε;', back: 'Where do you live?\n(formal)'},
+            {category: 'location', front: 'How do you say "I live in..."?', back: 'Μένω στην/στο/στη...'},
+            {category: 'location', front: 'στην Αθήνα', back: 'in Athens\n(feminine city)'},
+            {category: 'location', front: 'στο Λονδίνο', back: 'in London\n(neuter city)'},
+            {category: 'location', front: 'στη Θεσσαλονίκη', back: 'in Thessaloniki\n(feminine city)'},
+            {category: 'location', front: 'Πού μένει;', back: 'Where does he/she live?'},
+            {category: 'location', front: 'Μένω σε διαμέρισμα', back: 'I live in an apartment'},
+            {category: 'location', front: 'Μένω σε σπίτι', back: 'I live in a house'},
+            {category: 'location', front: 'στην πόλη', back: 'in the city'},
+            
+            // Verb Conjugation - είμαι (to be)
+            {category: 'verbs', front: 'Conjugate: είμαι (εγώ)', back: 'εγώ είμαι\n(I am)'},
+            {category: 'verbs', front: 'Conjugate: είμαι (εσύ)', back: 'εσύ είσαι\n(you are - informal)'},
+            {category: 'verbs', front: 'Conjugate: είμαι (αυτός/αυτή/αυτό)', back: 'αυτός/αυτή/αυτό είναι\n(he/she/it is)'},
+            {category: 'verbs', front: 'Conjugate: είμαι (εμείς)', back: 'εμείς είμαστε\n(we are)'},
+            {category: 'verbs', front: 'Conjugate: είμαι (εσείς)', back: 'εσείς είστε\n(you are - formal/plural)'},
+            {category: 'verbs', front: 'Conjugate: είμαι (αυτοί/αυτές/αυτά)', back: 'αυτοί/αυτές/αυτά είναι\n(they are)'},
+            
+            // Verb Conjugation - μένω (to live)
+            {category: 'verbs', front: 'Conjugate: μένω (εγώ)', back: 'εγώ μένω\n(I live)'},
+            {category: 'verbs', front: 'Conjugate: μένω (εσύ)', back: 'εσύ μένεις\n(you live)'},
+            {category: 'verbs', front: 'Conjugate: μένω (αυτός/αυτή/αυτό)', back: 'αυτός/αυτή/αυτό μένει\n(he/she/it lives)'},
+            {category: 'verbs', front: 'Conjugate: μένω (εμείς)', back: 'εμείς μένουμε\n(we live)'},
+            {category: 'verbs', front: 'Conjugate: μένω (εσείς)', back: 'εσείς μένετε\n(you live - formal/plural)'},
+            {category: 'verbs', front: 'Conjugate: μένω (αυτοί/αυτές/αυτά)', back: 'αυτοί/αυτές/αυτά μένουν\n(they live)'},
+            
+            // Numbers
+            {category: 'numbers', front: 'Write in Greek: 0', back: 'μηδέν'},
+            {category: 'numbers', front: 'Write in Greek: 1', back: 'ένα'},
+            {category: 'numbers', front: 'Write in Greek: 5', back: 'πέντε'},
+            {category: 'numbers', front: 'Write in Greek: 10', back: 'δέκα'},
+            {category: 'numbers', front: 'Write in Greek: 15', back: 'δεκαπέντε'},
+            {category: 'numbers', front: 'Write in Greek: 20', back: 'είκοσι'},
+            {category: 'numbers', front: 'Write in Greek: 50', back: 'πενήντα'},
+            {category: 'numbers', front: 'Write in Greek: 100', back: 'εκατό'}
+        ];
+
+        let currentIndex = 0;
+        let filteredCards = [...flashcards];
+
+        function updateCard() {
+            const card = filteredCards[currentIndex];
+            const flashcardElement = document.getElementById('flashcard');
+            const front = flashcardElement.querySelector('.flashcard-front .card-main');
+            const back = flashcardElement.querySelector('.flashcard-back .card-main');
+            
+            front.textContent = card.front;
+            back.innerHTML = card.back.replace(/\n/g, '<br>');
+            
+            flashcardElement.classList.remove('flipped');
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('counter').textContent = 
+                `Card ${currentIndex + 1} of ${filteredCards.length}`;
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % filteredCards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+            updateCard();
+        }
+
+        function shuffleCards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        document.getElementById('flashcard').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            const category = this.value;
+            if (category === 'all') {
+                filteredCards = [...flashcards];
+            } else {
+                filteredCards = flashcards.filter(card => card.category === category);
+            }
+            currentIndex = 0;
+            updateCard();
+        });
+
+        updateCard();
+    </script>
+</body>
+</html>

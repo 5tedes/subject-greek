@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Beginner Flashcards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .flashcard {
+            perspective: 1000px;
+            height: 300px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .card-main {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-sub {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        .counter {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .category-filter {
+            text-align: center;
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+        }
+        .hint {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ελληνικά για Αρχάριους</h1>
+        <p class="subtitle">Greek for Beginners - Click to flip!</p>
+
+        <div class="category-filter">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="numbers">Numbers 1-20</option>
+                <option value="directions">Directions</option>
+                <option value="positions">Positions</option>
+            </select>
+        </div>
+
+        <div class="counter" id="counter">Card 1 of 32</div>
+
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <div class="card-main">Loading...</div>
+                    <div class="card-sub"></div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="card-main">Loading...</div>
+                    <div class="card-sub"></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="hint">💡 Tip: Click the card to see the answer</p>
+
+        <div class="controls">
+            <button onclick="previousCard()">⬅️ Previous</button>
+            <button onclick="shuffleCards()">🔀 Shuffle</button>
+            <button onclick="nextCard()">Next ➡️</button>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            // Numbers 1-20
+            {category: 'numbers', front: '1', frontSub: 'one', back: 'ένα', backSub: '(ena)'},
+            {category: 'numbers', front: '2', frontSub: 'two', back: 'δύο', backSub: '(dyo)'},
+            {category: 'numbers', front: '3', frontSub: 'three', back: 'τρία', backSub: '(tria)'},
+            {category: 'numbers', front: '4', frontSub: 'four', back: 'τέσσερα', backSub: '(tessera)'},
+            {category: 'numbers', front: '5', frontSub: 'five', back: 'πέντε', backSub: '(pente)'},
+            {category: 'numbers', front: '6', frontSub: 'six', back: 'έξι', backSub: '(exi)'},
+            {category: 'numbers', front: '7', frontSub: 'seven', back: 'επτά / εφτά', backSub: '(epta / efta)'},
+            {category: 'numbers', front: '8', frontSub: 'eight', back: 'οκτώ / οχτώ', backSub: '(okto / ochto)'},
+            {category: 'numbers', front: '9', frontSub: 'nine', back: 'εννέα / εννιά', backSub: '(ennea / ennia)'},
+            {category: 'numbers', front: '10', frontSub: 'ten', back: 'δέκα', backSub: '(deka)'},
+            {category: 'numbers', front: '11', frontSub: 'eleven', back: 'έντεκα', backSub: '(enteka)'},
+            {category: 'numbers', front: '12', frontSub: 'twelve', back: 'δώδεκα', backSub: '(dodeka)'},
+            {category: 'numbers', front: '13', frontSub: 'thirteen', back: 'δεκατρία', backSub: '(dekatria)'},
+            {category: 'numbers', front: '14', frontSub: 'fourteen', back: 'δεκατέσσερα', backSub: '(dekatessera)'},
+            {category: 'numbers', front: '15', frontSub: 'fifteen', back: 'δεκαπέντε', backSub: '(dekapente)'},
+            {category: 'numbers', front: '16', frontSub: 'sixteen', back: 'δεκαέξι', backSub: '(dekaexi)'},
+            {category: 'numbers', front: '17', frontSub: 'seventeen', back: 'δεκαεπτά / δεκαεφτά', backSub: '(dekaepta / dekaefta)'},
+            {category: 'numbers', front: '18', frontSub: 'eighteen', back: 'δεκαοκτώ / δεκαοχτώ', backSub: '(dekaokto / dekaochto)'},
+            {category: 'numbers', front: '19', frontSub: 'nineteen', back: 'δεκαεννέα / δεκαεννιά', backSub: '(dekaennea / dekaennia)'},
+            {category: 'numbers', front: '20', frontSub: 'twenty', back: 'είκοσι', backSub: '(ikosi)'},
+
+            // Directions (up, down, right, left)
+            {category: 'directions', front: 'πάνω', frontSub: '(pano)', back: 'up / above', backSub: 'upward, on top'},
+            {category: 'directions', front: 'up / above', frontSub: '', back: 'πάνω', backSub: '(pano)'},
+            {category: 'directions', front: 'κάτω', frontSub: '(kato)', back: 'down / below', backSub: 'downward, underneath'},
+            {category: 'directions', front: 'down / below', frontSub: '', back: 'κάτω', backSub: '(kato)'},
+            {category: 'directions', front: 'δεξιά', frontSub: '(dexia)', back: 'right', backSub: 'to the right side'},
+            {category: 'directions', front: 'right', frontSub: '', back: 'δεξιά', backSub: '(dexia)'},
+            {category: 'directions', front: 'αριστερά', frontSub: '(aristera)', back: 'left', backSub: 'to the left side'},
+            {category: 'directions', front: 'left', frontSub: '', back: 'αριστερά', backSub: '(aristera)'},
+
+            // Positions (front, back, near, far)
+            {category: 'positions', front: 'μπροστά', frontSub: '(brosta)', back: 'front / in front', backSub: 'ahead, forward'},
+            {category: 'positions', front: 'front / in front', frontSub: '', back: 'μπροστά', backSub: '(brosta)'},
+            {category: 'positions', front: 'πίσω', frontSub: '(piso)', back: 'back / behind', backSub: 'backward, in the rear'},
+            {category: 'positions', front: 'back / behind', frontSub: '', back: 'πίσω', backSub: '(piso)'},
+            {category: 'positions', front: 'κοντά', frontSub: '(konta)', back: 'near / close', backSub: 'nearby, close by'},
+            {category: 'positions', front: 'near / close', frontSub: '', back: 'κοντά', backSub: '(konta)'},
+            {category: 'positions', front: 'μακριά', frontSub: '(makria)', back: 'far / away', backSub: 'distant, far away'},
+            {category: 'positions', front: 'far / away', frontSub: '', back: 'μακριά', backSub: '(makria)'}
+        ];
+
+        let currentIndex = 0;
+        let filteredCards = [...flashcards];
+
+        function updateCard() {
+            const card = filteredCards[currentIndex];
+            const flashcardElement = document.getElementById('flashcard');
+            const frontMain = flashcardElement.querySelector('.flashcard-front .card-main');
+            const frontSub = flashcardElement.querySelector('.flashcard-front .card-sub');
+            const backMain = flashcardElement.querySelector('.flashcard-back .card-main');
+            const backSub = flashcardElement.querySelector('.flashcard-back .card-sub');
+
+            frontMain.textContent = card.front;
+            frontSub.textContent = card.frontSub;
+            backMain.textContent = card.back;
+            backSub.textContent = card.backSub;
+
+            flashcardElement.classList.remove('flipped');
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('counter').textContent =
+                `Card ${currentIndex + 1} of ${filteredCards.length}`;
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % filteredCards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+            updateCard();
+        }
+
+        function shuffleCards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        document.getElementById('flashcard').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            const category = this.value;
+            if (category === 'all') {
+                filteredCards = [...flashcards];
+            } else {
+                filteredCards = flashcards.filter(card => card.category === category);
+            }
+            currentIndex = 0;
+            updateCard();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextCard();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousCard();
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                document.getElementById('flashcard').classList.toggle('flipped');
+            }
+        });
+
+        updateCard();
+    </script>
+</body>
+</html>

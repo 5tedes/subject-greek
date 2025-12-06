@@ -136,6 +136,10 @@
                 <option value="numbers">Numbers 1-20</option>
                 <option value="directions">Directions</option>
                 <option value="positions">Positions</option>
+                <option value="places">Places</option>
+                <option value="school">School Items</option>
+                <option value="articles">Articles (ο, η, το)</option>
+                <option value="verbs">Verb μένω (-ω verbs)</option>
             </select>
         </div>
 
@@ -205,7 +209,88 @@
             {category: 'positions', front: 'κοντά', frontSub: '(konta)', back: 'near / close', backSub: 'nearby, close by'},
             {category: 'positions', front: 'near / close', frontSub: '', back: 'κοντά', backSub: '(konta)'},
             {category: 'positions', front: 'μακριά', frontSub: '(makria)', back: 'far / away', backSub: 'distant, far away'},
-            {category: 'positions', front: 'far / away', frontSub: '', back: 'μακριά', backSub: '(makria)'}
+            {category: 'positions', front: 'far / away', frontSub: '', back: 'μακριά', backSub: '(makria)'},
+
+            // Places
+            {category: 'places', front: 'σπίτι', frontSub: '(spiti)', back: 'house / home', backSub: 'το σπίτι (neuter)'},
+            {category: 'places', front: 'house / home', frontSub: '', back: 'σπίτι', backSub: '(spiti)'},
+            {category: 'places', front: 'σχολείο', frontSub: '(scholeio)', back: 'school', backSub: 'το σχολείο (neuter)'},
+            {category: 'places', front: 'school', frontSub: '', back: 'σχολείο', backSub: '(scholeio)'},
+            {category: 'places', front: 'καφετέρια', frontSub: '(kafeteria)', back: 'café / coffee shop', backSub: 'η καφετέρια (feminine)'},
+            {category: 'places', front: 'café / coffee shop', frontSub: '', back: 'καφετέρια', backSub: '(kafeteria)'},
+            {category: 'places', front: 'στάση λεωφορείου', frontSub: '(stasi leoforeiou)', back: 'bus stop', backSub: 'η στάση (feminine)'},
+            {category: 'places', front: 'bus stop', frontSub: '', back: 'στάση λεωφορείου', backSub: '(stasi leoforeiou)'},
+            {category: 'places', front: 'πάρκο', frontSub: '(parko)', back: 'park', backSub: 'το πάρκο (neuter)'},
+            {category: 'places', front: 'park', frontSub: '', back: 'πάρκο', backSub: '(parko)'},
+            {category: 'places', front: 'λιμάνι', frontSub: '(limani)', back: 'port / harbor', backSub: 'το λιμάνι (neuter)'},
+            {category: 'places', front: 'port / harbor', frontSub: '', back: 'λιμάνι', backSub: '(limani)'},
+            {category: 'places', front: 'μουσείο', frontSub: '(mouseio)', back: 'museum', backSub: 'το μουσείο (neuter)'},
+            {category: 'places', front: 'museum', frontSub: '', back: 'μουσείο', backSub: '(mouseio)'},
+            {category: 'places', front: 'αεροδρόμιο', frontSub: '(aerodromio)', back: 'airport', backSub: 'το αεροδρόμιο (neuter)'},
+            {category: 'places', front: 'airport', frontSub: '', back: 'αεροδρόμιο', backSub: '(aerodromio)'},
+            {category: 'places', front: 'κινηματογράφος', frontSub: '(kinimatografos)', back: 'cinema / movie theater', backSub: 'ο κινηματογράφος (masculine)'},
+            {category: 'places', front: 'cinema / movie theater', frontSub: '', back: 'κινηματογράφος', backSub: '(kinimatografos)'},
+            {category: 'places', front: 'νοσοκομείο', frontSub: '(nosokomio)', back: 'hospital', backSub: 'το νοσοκομείο (neuter)'},
+            {category: 'places', front: 'hospital', frontSub: '', back: 'νοσοκομείο', backSub: '(nosokomio)'},
+            {category: 'places', front: 'βενζινάδικο', frontSub: '(venzinadiko)', back: 'gas station', backSub: 'το βενζινάδικο (neuter)'},
+            {category: 'places', front: 'gas station', frontSub: '', back: 'βενζινάδικο', backSub: '(venzinadiko)'},
+
+            // School Items
+            {category: 'school', front: 'θρανείο', frontSub: '(thraneio)', back: 'desk', backSub: 'το θρανείο (neuter)'},
+            {category: 'school', front: 'desk', frontSub: '', back: 'θρανείο', backSub: '(thraneio)'},
+            {category: 'school', front: 'καρέκλα', frontSub: '(karekla)', back: 'chair', backSub: 'η καρέκλα (feminine)'},
+            {category: 'school', front: 'chair', frontSub: '', back: 'καρέκλα', backSub: '(karekla)'},
+            {category: 'school', front: 'μολύβι', frontSub: '(molyvi)', back: 'pencil', backSub: 'το μολύβι (neuter)'},
+            {category: 'school', front: 'pencil', frontSub: '', back: 'μολύβι', backSub: '(molyvi)'},
+            {category: 'school', front: 'σβηστήρι', frontSub: '(svistiri)', back: 'eraser', backSub: 'το σβηστήρι (neuter)'},
+            {category: 'school', front: 'eraser', frontSub: '', back: 'σβηστήρι', backSub: '(svistiri)'},
+            {category: 'school', front: 'ξύστρα', frontSub: '(xystra)', back: 'pencil sharpener', backSub: 'η ξύστρα (feminine)'},
+            {category: 'school', front: 'pencil sharpener', frontSub: '', back: 'ξύστρα', backSub: '(xystra)'},
+            {category: 'school', front: 'ρίγα', frontSub: '(riga)', back: 'ruler', backSub: 'η ρίγα (feminine)'},
+            {category: 'school', front: 'ruler', frontSub: '', back: 'ρίγα', backSub: '(riga)'},
+            {category: 'school', front: 'βιβλίο', frontSub: '(vivlio)', back: 'book', backSub: 'το βιβλίο (neuter)'},
+            {category: 'school', front: 'book', frontSub: '', back: 'βιβλίο', backSub: '(vivlio)'},
+            {category: 'school', front: 'τετράδιο', frontSub: '(tetradio)', back: 'notebook', backSub: 'το τετράδιο (neuter)'},
+            {category: 'school', front: 'notebook', frontSub: '', back: 'τετράδιο', backSub: '(tetradio)'},
+            {category: 'school', front: 'κασετίνα', frontSub: '(kasetina)', back: 'pencil case', backSub: 'η κασετίνα (feminine)'},
+            {category: 'school', front: 'pencil case', frontSub: '', back: 'κασετίνα', backSub: '(kasetina)'},
+            {category: 'school', front: 'τσάντα', frontSub: '(tsanta)', back: 'bag', backSub: 'η τσάντα (feminine)'},
+            {category: 'school', front: 'bag', frontSub: '', back: 'τσάντα', backSub: '(tsanta)'},
+
+            // Articles - Masculine (ο)
+            {category: 'articles', front: 'ο κινηματογράφος', frontSub: '(o kinimatografos)', back: 'the cinema', backSub: 'masculine article'},
+            {category: 'articles', front: 'ο άνθρωπος', frontSub: '(o anthropos)', back: 'the person/human', backSub: 'masculine example'},
+            {category: 'articles', front: 'ο ήλιος', frontSub: '(o ilios)', back: 'the sun', backSub: 'masculine example'},
+            {category: 'articles', front: 'masculine article', frontSub: '', back: 'ο', backSub: '(o)'},
+
+            // Articles - Feminine (η)
+            {category: 'articles', front: 'η καρέκλα', frontSub: '(i karekla)', back: 'the chair', backSub: 'feminine article'},
+            {category: 'articles', front: 'η τσάντα', frontSub: '(i tsanta)', back: 'the bag', backSub: 'feminine example'},
+            {category: 'articles', front: 'η καφετέρια', frontSub: '(i kafeteria)', back: 'the café', backSub: 'feminine example'},
+            {category: 'articles', front: 'feminine article', frontSub: '', back: 'η', backSub: '(i)'},
+
+            // Articles - Neuter (το)
+            {category: 'articles', front: 'το σπίτι', frontSub: '(to spiti)', back: 'the house', backSub: 'neuter article'},
+            {category: 'articles', front: 'το βιβλίο', frontSub: '(to vivlio)', back: 'the book', backSub: 'neuter example'},
+            {category: 'articles', front: 'το μολύβι', frontSub: '(to molyvi)', back: 'the pencil', backSub: 'neuter example'},
+            {category: 'articles', front: 'neuter article', frontSub: '', back: 'το', backSub: '(to)'},
+
+            // Verb μένω conjugation
+            {category: 'verbs', front: 'εγώ μένω', frontSub: '(ego meno)', back: 'I live / I stay', backSub: '1st person singular'},
+            {category: 'verbs', front: 'εσύ μένεις', frontSub: '(esy meneis)', back: 'you live / you stay', backSub: '2nd person singular'},
+            {category: 'verbs', front: 'αυτός/ή/ό μένει', frontSub: '(aftos/i/o menei)', back: 'he/she/it lives', backSub: '3rd person singular'},
+            {category: 'verbs', front: 'εμείς μένουμε', frontSub: '(emeis menoume)', back: 'we live / we stay', backSub: '1st person plural'},
+            {category: 'verbs', front: 'εσείς μένετε', frontSub: '(eseis menete)', back: 'you live / you stay', backSub: '2nd person plural'},
+            {category: 'verbs', front: 'αυτοί/ές/ά μένουν', frontSub: '(aftoi/es/a menoun)', back: 'they live / they stay', backSub: '3rd person plural'},
+            
+            // Pattern for -ω verbs
+            {category: 'verbs', front: '-ω verb pattern', frontSub: 'present tense', back: '-ω, -εις, -ει, -ουμε, -ετε, -ουν', backSub: 'all persons'},
+            {category: 'verbs', front: 'I live', frontSub: '', back: 'μένω', backSub: '(meno)'},
+            {category: 'verbs', front: 'you live (singular)', frontSub: '', back: 'μένεις', backSub: '(meneis)'},
+            {category: 'verbs', front: 'he/she/it lives', frontSub: '', back: 'μένει', backSub: '(menei)'},
+            {category: 'verbs', front: 'we live', frontSub: '', back: 'μένουμε', backSub: '(menoume)'},
+            {category: 'verbs', front: 'you live (plural)', frontSub: '', back: 'μένετε', backSub: '(menete)'},
+            {category: 'verbs', front: 'they live', frontSub: '', back: 'μένουν', backSub: '(menoun)'}
         ];
 
         let currentIndex = 0;

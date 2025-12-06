@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greek A1 Practice Test</title>
+    <title>Greek A1 Practice Test - Stranger Things Edition</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Benguiat:wght@700&display=swap');
         
         * {
             margin: 0;
@@ -14,26 +15,24 @@
         }
         
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --light: #f1f1f1;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --error: #e74c3c;
+            --st-red: #ff0000;
+            --st-dark: #0a0a0a;
+            --st-darker: #050505;
+            --st-yellow: #ffeb3b;
+            --st-light: #e8e8e8;
         }
         
         body {
-            font-family: 'Space Mono', monospace;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            font-family: 'Courier Prime', monospace;
+            background: var(--st-darker);
             min-height: 100vh;
-            color: var(--light);
+            color: var(--st-light);
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
         
+        /* Flickering lights effect */
         body::before {
             content: '';
             position: fixed;
@@ -41,10 +40,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 0, 0, 0.02) 2px,
+                    rgba(255, 0, 0, 0.02) 4px
+                );
             pointer-events: none;
             z-index: 1;
+            animation: flicker 0.15s infinite alternate;
+        }
+        
+        /* Retro scan lines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
         }
         
         .container {
@@ -61,38 +86,70 @@
         }
         
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--highlight);
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-            letter-spacing: -2px;
+            font-family: 'Benguiat', 'Special Elite', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--st-red);
+            text-shadow: 
+                0 0 10px var(--st-red),
+                0 0 20px var(--st-red),
+                0 0 30px var(--st-red),
+                0 0 40px var(--st-red),
+                0 0 70px var(--st-red),
+                0 0 80px var(--st-red),
+                0 0 100px var(--st-red),
+                0 0 150px var(--st-red);
+            margin-bottom: 20px;
+            letter-spacing: 0.15em;
+            animation: neonFlicker 1.5s infinite alternate;
+            position: relative;
+            padding: 30px 40px;
+            border: 6px solid var(--st-red);
+            box-shadow: 
+                0 0 20px var(--st-red),
+                inset 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+        
+        h1::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid var(--st-red);
+            opacity: 0.6;
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            color: var(--light);
-            opacity: 0.8;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            color: var(--st-yellow);
+            opacity: 0.9;
+            letter-spacing: 6px;
             text-transform: uppercase;
+            font-family: 'Courier Prime', monospace;
+            text-shadow: 0 0 5px var(--st-yellow);
         }
         
         .test-info {
-            background: rgba(255,255,255,0.05);
-            border: 2px solid var(--highlight);
-            border-radius: 15px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 3px solid var(--st-red);
+            border-radius: 0;
             padding: 30px;
             margin-bottom: 40px;
-            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 0, 0, 0.1);
             animation: fadeIn 1s ease 0.3s backwards;
         }
         
         .test-info h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--highlight);
+            font-family: 'Special Elite', monospace;
+            color: var(--st-red);
             margin-bottom: 20px;
             font-size: 2rem;
+            text-shadow: 0 0 10px var(--st-red);
+            letter-spacing: 4px;
         }
         
         .info-grid {
@@ -103,34 +160,56 @@
         }
         
         .info-item {
-            background: rgba(233, 69, 96, 0.1);
+            background: rgba(0, 0, 0, 0.6);
             padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--highlight);
+            border: 2px solid var(--st-red);
+            border-radius: 0;
+            box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.2);
         }
         
         .info-label {
             font-size: 0.8rem;
-            opacity: 0.7;
+            color: var(--st-yellow);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         
         .info-value {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--highlight);
+            color: var(--st-red);
             margin-top: 5px;
+            font-family: 'Special Elite', monospace;
+            text-shadow: 0 0 5px var(--st-red);
         }
         
         .section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid var(--st-red);
             padding: 30px;
             margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 
+                0 0 15px rgba(255, 0, 0, 0.3),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
             animation: slideInUp 0.8s ease backwards;
+            position: relative;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 0, 0, 0.03) 20px,
+                rgba(255, 0, 0, 0.03) 40px
+            );
+            pointer-events: none;
         }
         
         .section:nth-child(even) {
@@ -142,79 +221,90 @@
         }
         
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--highlight);
+            font-family: 'Special Elite', monospace;
+            font-size: 1.8rem;
+            color: var(--st-red);
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid var(--highlight);
+            border-bottom: 2px solid var(--st-red);
             display: flex;
             align-items: center;
             gap: 15px;
+            text-shadow: 0 0 10px var(--st-red);
+            letter-spacing: 3px;
         }
         
         .section-number {
-            background: var(--highlight);
-            color: white;
+            background: var(--st-red);
+            color: var(--st-darker);
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border: 2px solid var(--st-red);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             font-weight: 700;
+            box-shadow: 
+                0 0 10px var(--st-red),
+                0 0 20px var(--st-red);
         }
         
         .question {
-            background: rgba(255,255,255,0.03);
+            background: rgba(0, 0, 0, 0.5);
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-left: 4px solid var(--st-red);
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .question:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 0, 0, 0.05);
             transform: translateX(5px);
-            border-left-color: var(--highlight);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
         }
         
         .question-number {
-            color: var(--highlight);
+            color: var(--st-yellow);
             font-weight: 700;
             margin-bottom: 10px;
             font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         
         .question-text {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 15px;
-            color: var(--light);
+            color: var(--st-light);
         }
         
         input[type="text"],
         textarea,
         select {
             width: 100%;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--st-red);
             padding: 12px 15px;
-            color: var(--light);
-            font-family: 'Space Mono', monospace;
+            color: var(--st-yellow);
+            font-family: 'Courier Prime', monospace;
             font-size: 1rem;
             transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
         
         input[type="text"]:focus,
         textarea:focus,
         select:focus {
             outline: none;
-            border-color: var(--highlight);
-            background: rgba(255,255,255,0.15);
+            border-color: var(--st-red);
+            box-shadow: 
+                0 0 10px var(--st-red),
+                inset 0 0 10px rgba(255, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.9);
         }
         
         textarea {
@@ -229,10 +319,9 @@
         }
         
         .option {
-            background: rgba(255,255,255,0.05);
+            background: rgba(0, 0, 0, 0.6);
             padding: 12px 15px;
-            border-radius: 8px;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -241,15 +330,16 @@
         }
         
         .option:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--highlight);
-            transform: translateX(3px);
+            background: rgba(255, 0, 0, 0.1);
+            border-color: var(--st-red);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
         .option input[type="radio"] {
             width: 20px;
             height: 20px;
-            accent-color: var(--highlight);
+            accent-color: var(--st-red);
+            filter: drop-shadow(0 0 5px var(--st-red));
         }
         
         .matching-container {
@@ -286,35 +376,44 @@
         }
         
         .submit-btn {
-            background: var(--highlight);
-            color: white;
-            border: none;
+            background: var(--st-red);
+            color: var(--st-darker);
+            border: 3px solid var(--st-red);
             padding: 20px 60px;
             font-size: 1.3rem;
             font-weight: 700;
-            border-radius: 50px;
             cursor: pointer;
-            font-family: 'Space Mono', monospace;
+            font-family: 'Special Elite', monospace;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+            box-shadow: 
+                0 0 20px var(--st-red),
+                0 0 40px var(--st-red),
+                0 10px 30px rgba(255, 0, 0, 0.5);
+            position: relative;
         }
         
         .submit-btn:hover {
-            background: #ff5574;
+            background: var(--st-darker);
+            color: var(--st-red);
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.5);
+            box-shadow: 
+                0 0 30px var(--st-red),
+                0 0 60px var(--st-red),
+                0 15px 40px rgba(255, 0, 0, 0.7);
         }
         
         .results {
             display: none;
-            background: rgba(46, 204, 113, 0.1);
-            border: 3px solid var(--success);
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid var(--st-red);
             padding: 40px;
             margin-top: 30px;
             text-align: center;
+            box-shadow: 
+                0 0 30px var(--st-red),
+                inset 0 0 30px rgba(255, 0, 0, 0.2);
         }
         
         .results.show {
@@ -323,10 +422,52 @@
         }
         
         .score {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Special Elite', monospace;
             font-size: 4rem;
-            color: var(--success);
+            color: var(--st-red);
             font-weight: 900;
+            text-shadow: 
+                0 0 20px var(--st-red),
+                0 0 40px var(--st-red),
+                0 0 60px var(--st-red);
+            animation: neonPulse 2s infinite;
+        }
+        
+        @keyframes neonFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 10px var(--st-red),
+                    0 0 20px var(--st-red),
+                    0 0 30px var(--st-red),
+                    0 0 40px var(--st-red),
+                    0 0 70px var(--st-red),
+                    0 0 80px var(--st-red),
+                    0 0 100px var(--st-red),
+                    0 0 150px var(--st-red);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        
+        @keyframes neonPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px var(--st-red),
+                    0 0 40px var(--st-red),
+                    0 0 60px var(--st-red);
+            }
+            50% {
+                text-shadow: 
+                    0 0 30px var(--st-red),
+                    0 0 60px var(--st-red),
+                    0 0 90px var(--st-red);
+            }
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.97; }
         }
         
         @keyframes fadeInDown {
@@ -374,14 +515,17 @@
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
-            }
-            
-            .matching-container {
-                grid-template-columns: 1fr;
+                letter-spacing: 0.1em;
+                padding: 20px 30px;
             }
             
             .section {
                 padding: 20px;
+            }
+            
+            .submit-btn {
+                padding: 15px 40px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -389,8 +533,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>ΕΞΕΤΑΣΗ Α1</h1>
-            <p class="subtitle">Greek A1 Level Practice Test</p>
+            <h1>STRANGER<br>THINGS</h1>
+            <p class="subtitle">*** GREEK A1 EDITION ***</p>
         </header>
         
         <div class="test-info">
@@ -427,31 +571,116 @@
                 <div class="question">
                     <div class="question-number">Question 1</div>
                     <div class="question-text">Write in Greek numerals: 7</div>
-                    <input type="text" name="q1" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a">
+                            <span>έξι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b">
+                            <span>επτά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c">
+                            <span>οκτώ</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d">
+                            <span>εννέα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 2</div>
                     <div class="question-text">Write in Greek: 15</div>
-                    <input type="text" name="q2" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            <span>δεκατρία</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b">
+                            <span>δεκαπέντε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            <span>δεκατέσσερα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d">
+                            <span>δεκαέξι</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 3</div>
                     <div class="question-text">What number is this: δεκαοκτώ</div>
-                    <input type="text" name="q3" placeholder="Your answer (number)">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            <span>16</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            <span>17</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c">
+                            <span>18</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d">
+                            <span>19</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 4</div>
                     <div class="question-text">Complete the sequence: πέντε, έξι, ____, οκτώ</div>
-                    <input type="text" name="q4" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a">
+                            <span>εφτά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b">
+                            <span>δέκα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c">
+                            <span>τέσσερα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d">
+                            <span>εννέα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 5</div>
                     <div class="question-text">How do you say "I am 20 years old" in Greek?</div>
-                    <input type="text" name="q5" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a">
+                            <span>Είμαι είκοσι χρονών</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            <span>Είμαι δέκα χρονών</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            <span>Έχω είκοσι χρόνια</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d">
+                            <span>Είμαι δώδεκα χρονών</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -465,19 +694,70 @@
                 <div class="question">
                     <div class="question-number">Question 6</div>
                     <div class="question-text">What is the opposite of "πάνω"?</div>
-                    <input type="text" name="q6" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="a">
+                            <span>δεξιά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="b">
+                            <span>κάτω</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="c">
+                            <span>μακριά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="d">
+                            <span>πίσω</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 7</div>
                     <div class="question-text">Translate to English: δεξιά</div>
-                    <input type="text" name="q7" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="a">
+                            <span>left</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="b">
+                            <span>right</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="c">
+                            <span>up</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="d">
+                            <span>down</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 8</div>
                     <div class="question-text">How do you say "near" in Greek?</div>
-                    <input type="text" name="q8" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="a">
+                            <span>μακριά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="b">
+                            <span>κοντά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="c">
+                            <span>μπροστά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="d">
+                            <span>πίσω</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -502,7 +782,24 @@
                 <div class="question">
                     <div class="question-number">Question 10</div>
                     <div class="question-text">Translate: "far away"</div>
-                    <input type="text" name="q10" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q10" value="a">
+                            <span>κοντά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="b">
+                            <span>μακριά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="c">
+                            <span>εδώ</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="d">
+                            <span>εκεί</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -516,13 +813,47 @@
                 <div class="question">
                     <div class="question-number">Question 11</div>
                     <div class="question-text">How do you say "house" in Greek?</div>
-                    <input type="text" name="q11" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q11" value="a">
+                            <span>σπίτι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="b">
+                            <span>σχολείο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="c">
+                            <span>πάρκο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="d">
+                            <span>μουσείο</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 12</div>
                     <div class="question-text">Translate: καφετέρια</div>
-                    <input type="text" name="q12" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q12" value="a">
+                            <span>school</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q12" value="b">
+                            <span>café / coffee shop</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q12" value="c">
+                            <span>cinema</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q12" value="d">
+                            <span>hospital</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -547,13 +878,47 @@
                 <div class="question">
                     <div class="question-number">Question 14</div>
                     <div class="question-text">Write in Greek: "hospital"</div>
-                    <input type="text" name="q14" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q14" value="a">
+                            <span>νοσοκομείο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q14" value="b">
+                            <span>αεροδρόμιο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q14" value="c">
+                            <span>κινηματογράφος</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q14" value="d">
+                            <span>βενζινάδικο</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 15</div>
                     <div class="question-text">Translate: βενζινάδικο</div>
-                    <input type="text" name="q15" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q15" value="a">
+                            <span>airport</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q15" value="b">
+                            <span>gas station</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q15" value="c">
+                            <span>bus stop</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q15" value="d">
+                            <span>park</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -567,19 +932,70 @@
                 <div class="question">
                     <div class="question-number">Question 16</div>
                     <div class="question-text">How do you say "pencil" in Greek?</div>
-                    <input type="text" name="q16" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q16" value="a">
+                            <span>μολύβι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q16" value="b">
+                            <span>ξύστρα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q16" value="c">
+                            <span>σβηστήρι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q16" value="d">
+                            <span>ρίγα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 17</div>
                     <div class="question-text">What is "καρέκλα"?</div>
-                    <input type="text" name="q17" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q17" value="a">
+                            <span>desk</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q17" value="b">
+                            <span>chair</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q17" value="c">
+                            <span>table</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q17" value="d">
+                            <span>book</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 18</div>
                     <div class="question-text">Translate to Greek: "book"</div>
-                    <input type="text" name="q18" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q18" value="a">
+                            <span>βιβλίο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q18" value="b">
+                            <span>τετράδιο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q18" value="c">
+                            <span>κασετίνα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q18" value="d">
+                            <span>τσάντα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -604,7 +1020,24 @@
                 <div class="question">
                     <div class="question-number">Question 20</div>
                     <div class="question-text">Translate: ξύστρα</div>
-                    <input type="text" name="q20" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q20" value="a">
+                            <span>eraser</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q20" value="b">
+                            <span>pencil sharpener</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q20" value="c">
+                            <span>ruler</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q20" value="d">
+                            <span>notebook</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -618,7 +1051,24 @@
                 <div class="question">
                     <div class="question-number">Question 21</div>
                     <div class="question-text">What is the masculine article in Greek?</div>
-                    <input type="text" name="q21" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q21" value="a">
+                            <span>ο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q21" value="b">
+                            <span>η</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q21" value="c">
+                            <span>το</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q21" value="d">
+                            <span>οι</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
@@ -662,13 +1112,43 @@
                 <div class="question">
                     <div class="question-number">Question 24</div>
                     <div class="question-text">What gender is "κινηματογράφος"?</div>
-                    <input type="text" name="q24" placeholder="masculine, feminine, or neuter">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q24" value="a">
+                            <span>masculine</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q24" value="b">
+                            <span>feminine</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q24" value="c">
+                            <span>neuter</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 25</div>
                     <div class="question-text">Write the full form: ___ βιβλίο (the book)</div>
-                    <input type="text" name="q25" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q25" value="a">
+                            <span>το βιβλίο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q25" value="b">
+                            <span>ο βιβλίο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q25" value="c">
+                            <span>η βιβλίο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q25" value="d">
+                            <span>τα βιβλία</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -682,31 +1162,116 @@
                 <div class="question">
                     <div class="question-number">Question 26</div>
                     <div class="question-text">Conjugate: εγώ ______ (μένω)</div>
-                    <input type="text" name="q26" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q26" value="a">
+                            <span>μένω</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q26" value="b">
+                            <span>μένεις</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q26" value="c">
+                            <span>μένει</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q26" value="d">
+                            <span>μένουμε</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 27</div>
                     <div class="question-text">Conjugate: εσύ ______ (μένω)</div>
-                    <input type="text" name="q27" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q27" value="a">
+                            <span>μένω</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q27" value="b">
+                            <span>μένεις</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q27" value="c">
+                            <span>μένει</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q27" value="d">
+                            <span>μένουν</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 28</div>
                     <div class="question-text">Conjugate: αυτός/ή/ό ______ (μένω)</div>
-                    <input type="text" name="q28" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q28" value="a">
+                            <span>μένει</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q28" value="b">
+                            <span>μένεις</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q28" value="c">
+                            <span>μένω</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q28" value="d">
+                            <span>μένετε</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 29</div>
                     <div class="question-text">Conjugate: εμείς ______ (μένω)</div>
-                    <input type="text" name="q29" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q29" value="a">
+                            <span>μένουμε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q29" value="b">
+                            <span>μένετε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q29" value="c">
+                            <span>μένουν</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q29" value="d">
+                            <span>μένω</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 30</div>
                     <div class="question-text">Conjugate: αυτοί/ές/ά ______ (μένω)</div>
-                    <input type="text" name="q30" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q30" value="a">
+                            <span>μένει</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q30" value="b">
+                            <span>μένουν</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q30" value="c">
+                            <span>μένετε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q30" value="d">
+                            <span>μένουμε</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -720,31 +1285,116 @@
                 <div class="question">
                     <div class="question-number">Question 31</div>
                     <div class="question-text">Conjugate: εγώ ______ (είμαι)</div>
-                    <input type="text" name="q31" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q31" value="a">
+                            <span>είμαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q31" value="b">
+                            <span>είσαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q31" value="c">
+                            <span>είναι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q31" value="d">
+                            <span>είμαστε</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 32</div>
                     <div class="question-text">Conjugate: εσύ ______ (είμαι)</div>
-                    <input type="text" name="q32" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q32" value="a">
+                            <span>είμαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q32" value="b">
+                            <span>είσαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q32" value="c">
+                            <span>είναι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q32" value="d">
+                            <span>είστε</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 33</div>
                     <div class="question-text">Conjugate: αυτός/ή/ό ______ (είμαι)</div>
-                    <input type="text" name="q33" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q33" value="a">
+                            <span>είναι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q33" value="b">
+                            <span>είσαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q33" value="c">
+                            <span>είμαι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q33" value="d">
+                            <span>είμαστε</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 34</div>
                     <div class="question-text">Conjugate: εμείς ______ (είμαι)</div>
-                    <input type="text" name="q34" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q34" value="a">
+                            <span>είμαστε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q34" value="b">
+                            <span>είστε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q34" value="c">
+                            <span>είναι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q34" value="d">
+                            <span>είμαι</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 35</div>
                     <div class="question-text">Conjugate: εσείς ______ (είμαι)</div>
-                    <input type="text" name="q35" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q35" value="a">
+                            <span>είστε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q35" value="b">
+                            <span>είμαστε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q35" value="c">
+                            <span>είναι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q35" value="d">
+                            <span>είσαι</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -758,61 +1408,231 @@
                 <div class="question">
                     <div class="question-number">Question 36</div>
                     <div class="question-text">How do you say "Hello" informally?</div>
-                    <input type="text" name="q36" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q36" value="a">
+                            <span>Γεια σου</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q36" value="b">
+                            <span>Γεια σας</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q36" value="c">
+                            <span>Καλημέρα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q36" value="d">
+                            <span>Αντίο</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 37</div>
                     <div class="question-text">Translate: Πώς σε λένε;</div>
-                    <input type="text" name="q37" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q37" value="a">
+                            <span>What is your name? (informal)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q37" value="b">
+                            <span>How are you?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q37" value="c">
+                            <span>Where are you from?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q37" value="d">
+                            <span>How old are you?</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 38</div>
                     <div class="question-text">How do you say "My name is..."?</div>
-                    <input type="text" name="q38" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q38" value="a">
+                            <span>Με λένε...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q38" value="b">
+                            <span>Είμαι από...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q38" value="c">
+                            <span>Μένω στην...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q38" value="d">
+                            <span>Χαίρω πολύ</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 39</div>
                     <div class="question-text">Translate: Πού μένεις;</div>
-                    <input type="text" name="q39" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q39" value="a">
+                            <span>Where do you live? (informal)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q39" value="b">
+                            <span>Where are you from?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q39" value="c">
+                            <span>What is your name?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q39" value="d">
+                            <span>How are you?</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 40</div>
                     <div class="question-text">How do you say "I live in Athens"?</div>
-                    <input type="text" name="q40" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q40" value="a">
+                            <span>Μένω στην Αθήνα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q40" value="b">
+                            <span>Είμαι από την Αθήνα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q40" value="c">
+                            <span>Πάω στην Αθήνα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q40" value="d">
+                            <span>Έχω Αθήνα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 41</div>
                     <div class="question-text">What does "Χαίρω πολύ" mean?</div>
-                    <input type="text" name="q41" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q41" value="a">
+                            <span>Nice to meet you</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q41" value="b">
+                            <span>Thank you very much</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q41" value="c">
+                            <span>Goodbye</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q41" value="d">
+                            <span>Good morning</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 42</div>
                     <div class="question-text">Translate: Από πού είσαι;</div>
-                    <input type="text" name="q42" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q42" value="a">
+                            <span>Where are you from? (informal)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q42" value="b">
+                            <span>Where do you live?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q42" value="c">
+                            <span>Who are you?</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q42" value="d">
+                            <span>What are you doing?</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 43</div>
                     <div class="question-text">How do you say "I am from..." in Greek?</div>
-                    <input type="text" name="q43" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q43" value="a">
+                            <span>Είμαι από...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q43" value="b">
+                            <span>Μένω στην...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q43" value="c">
+                            <span>Με λένε...</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q43" value="d">
+                            <span>Πάω από...</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 44</div>
                     <div class="question-text">Complete: Μένω ____ διαμέρισμα (I live in an apartment)</div>
-                    <input type="text" name="q44" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q44" value="a">
+                            <span>σε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q44" value="b">
+                            <span>στο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q44" value="c">
+                            <span>στην</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q44" value="d">
+                            <span>από</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 45</div>
                     <div class="question-text">What does "στην πόλη" mean?</div>
-                    <input type="text" name="q45" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q45" value="a">
+                            <span>in the city</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q45" value="b">
+                            <span>from the city</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q45" value="c">
+                            <span>to the city</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q45" value="d">
+                            <span>the city</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -825,32 +1645,117 @@
                 
                 <div class="question">
                     <div class="question-number">Question 46</div>
-                    <div class="question-text">Write a short introduction in Greek (3-4 sentences) including your name, age, where you're from, and where you live.</div>
-                    <textarea name="q46" rows="4" placeholder="Write your introduction here..."></textarea>
+                    <div class="question-text">How do you say "I am a student" in Greek?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q46" value="a">
+                            <span>Είμαι μαθητής/μαθήτρια</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q46" value="b">
+                            <span>Είμαι δάσκαλος</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q46" value="c">
+                            <span>Μένω σχολείο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q46" value="d">
+                            <span>Πάω σχολείο</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 47</div>
-                    <div class="question-text">List 5 school items in Greek:</div>
-                    <textarea name="q47" rows="3" placeholder="1. _____ 2. _____ 3. _____ 4. _____ 5. _____"></textarea>
+                    <div class="question-text">Which of these is NOT a school item?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q47" value="a">
+                            <span>μολύβι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q47" value="b">
+                            <span>τετράδιο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q47" value="c">
+                            <span>λιμάνι</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q47" value="d">
+                            <span>κασετίνα</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 48</div>
-                    <div class="question-text">Give the conjugation pattern for -ω verbs (present tense):</div>
-                    <input type="text" name="q48" placeholder="-ω, -εις, ...">
+                    <div class="question-text">What is the -ω verb conjugation pattern for "we"?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q48" value="a">
+                            <span>-ουμε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q48" value="b">
+                            <span>-ετε</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q48" value="c">
+                            <span>-ουν</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q48" value="d">
+                            <span>-εις</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 49</div>
                     <div class="question-text">Translate: "The museum is near the park"</div>
-                    <input type="text" name="q49" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q49" value="a">
+                            <span>Το μουσείο είναι κοντά στο πάρκο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q49" value="b">
+                            <span>Το μουσείο είναι μακριά στο πάρκο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q49" value="c">
+                            <span>Το πάρκο είναι κοντά</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q49" value="d">
+                            <span>Το μουσείο πάει στο πάρκο</span>
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="question">
                     <div class="question-number">Question 50</div>
                     <div class="question-text">How would you ask someone (formally) how old they are?</div>
-                    <input type="text" name="q50" placeholder="Your answer">
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q50" value="a">
+                            <span>Πόσο χρονών είστε;</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q50" value="b">
+                            <span>Πόσο χρονών είσαι;</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q50" value="c">
+                            <span>Πώς σας λένε;</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q50" value="d">
+                            <span>Από πού είστε;</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -860,7 +1765,7 @@
         </form>
 
         <div class="results" id="results">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Test Submitted!</h2>
+            <h2 style="font-family: 'Special Elite', monospace; font-size: 2rem; margin-bottom: 20px;">Test Submitted!</h2>
             <p style="font-size: 1.2rem; margin-bottom: 20px;">Your answers have been recorded. Review your responses and check them against the answer key provided by your teacher.</p>
             <div class="score">Καλή επιτυχία!</div>
             <p style="margin-top: 20px; opacity: 0.8;">Good luck!</p>

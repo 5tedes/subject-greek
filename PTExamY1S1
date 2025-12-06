@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek A1 Practice Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --light: #f1f1f1;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --error: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            color: var(--light);
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--highlight);
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--light);
+            opacity: 0.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .test-info {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--highlight);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease 0.3s backwards;
+        }
+        
+        .test-info h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--highlight);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            background: rgba(233, 69, 96, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--highlight);
+        }
+        
+        .info-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--highlight);
+            margin-top: 5px;
+        }
+        
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideInUp 0.8s ease backwards;
+        }
+        
+        .section:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+        
+        .section:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--highlight);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--highlight);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-number {
+            background: var(--highlight);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .question {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .question:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(5px);
+            border-left-color: var(--highlight);
+        }
+        
+        .question-number {
+            color: var(--highlight);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: var(--light);
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--highlight);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            background: rgba(255,255,255,0.05);
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--highlight);
+            transform: translateX(3px);
+        }
+        
+        .option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--highlight);
+        }
+        
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .matching-column {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .matching-item {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid var(--highlight);
+        }
+        
+        .fill-blank {
+            display: inline-block;
+            min-width: 150px;
+            border-bottom: 2px solid var(--highlight);
+            margin: 0 5px;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+        }
+        
+        .submit-btn {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+        
+        .submit-btn:hover {
+            background: #ff5574;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.5);
+        }
+        
+        .results {
+            display: none;
+            background: rgba(46, 204, 113, 0.1);
+            border: 3px solid var(--success);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .results.show {
+            display: block;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        .score {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--success);
+            font-weight: 900;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ΕΞΕΤΑΣΗ Α1</h1>
+            <p class="subtitle">Greek A1 Level Practice Test</p>
+        </header>
+        
+        <div class="test-info">
+            <h2>Πληροφορίες Εξέτασης</h2>
+            <p>This comprehensive test covers all material from your flashcard sets including numbers, directions, positions, places, school items, articles, verb conjugations, and A1 conversational phrases.</p>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Total Questions</div>
+                    <div class="info-value">50</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Sections</div>
+                    <div class="info-value">8</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Time Limit</div>
+                    <div class="info-value">None</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Difficulty</div>
+                    <div class="info-value">A1</div>
+                </div>
+            </div>
+        </div>
+
+        <form id="testForm">
+            <!-- Section 1: Numbers -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">1</span>
+                    Αριθμοί (Numbers)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 1</div>
+                    <div class="question-text">Write in Greek numerals: 7</div>
+                    <input type="text" name="q1" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 2</div>
+                    <div class="question-text">Write in Greek: 15</div>
+                    <input type="text" name="q2" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 3</div>
+                    <div class="question-text">What number is this: δεκαοκτώ</div>
+                    <input type="text" name="q3" placeholder="Your answer (number)">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 4</div>
+                    <div class="question-text">Complete the sequence: πέντε, έξι, ____, οκτώ</div>
+                    <input type="text" name="q4" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 5</div>
+                    <div class="question-text">How do you say "I am 20 years old" in Greek?</div>
+                    <input type="text" name="q5" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 2: Directions & Positions -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">2</span>
+                    Κατευθύνσεις & Θέσεις (Directions & Positions)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 6</div>
+                    <div class="question-text">What is the opposite of "πάνω"?</div>
+                    <input type="text" name="q6" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 7</div>
+                    <div class="question-text">Translate to English: δεξιά</div>
+                    <input type="text" name="q7" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 8</div>
+                    <div class="question-text">How do you say "near" in Greek?</div>
+                    <input type="text" name="q8" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 9</div>
+                    <div class="question-text">Match: "μπροστά" means...</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="a">
+                            <span>behind</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="b">
+                            <span>front / in front</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="c">
+                            <span>near</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 10</div>
+                    <div class="question-text">Translate: "far away"</div>
+                    <input type="text" name="q10" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 3: Places -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">3</span>
+                    Τοποθεσίες (Places)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 11</div>
+                    <div class="question-text">How do you say "house" in Greek?</div>
+                    <input type="text" name="q11" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 12</div>
+                    <div class="question-text">Translate: καφετέρια</div>
+                    <input type="text" name="q12" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 13</div>
+                    <div class="question-text">What is "λιμάνι"?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q13" value="a">
+                            <span>airport</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q13" value="b">
+                            <span>port / harbor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q13" value="c">
+                            <span>museum</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 14</div>
+                    <div class="question-text">Write in Greek: "hospital"</div>
+                    <input type="text" name="q14" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 15</div>
+                    <div class="question-text">Translate: βενζινάδικο</div>
+                    <input type="text" name="q15" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 4: School Items -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">4</span>
+                    Σχολικά Είδη (School Items)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 16</div>
+                    <div class="question-text">How do you say "pencil" in Greek?</div>
+                    <input type="text" name="q16" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 17</div>
+                    <div class="question-text">What is "καρέκλα"?</div>
+                    <input type="text" name="q17" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 18</div>
+                    <div class="question-text">Translate to Greek: "book"</div>
+                    <input type="text" name="q18" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 19</div>
+                    <div class="question-text">What is the Greek word for "bag"?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q19" value="a">
+                            <span>τσάντα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q19" value="b">
+                            <span>κασετίνα</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q19" value="c">
+                            <span>τετράδιο</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 20</div>
+                    <div class="question-text">Translate: ξύστρα</div>
+                    <input type="text" name="q20" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 5: Articles (ο, η, το) -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">5</span>
+                    Άρθρα (Articles)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 21</div>
+                    <div class="question-text">What is the masculine article in Greek?</div>
+                    <input type="text" name="q21" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 22</div>
+                    <div class="question-text">Choose the correct article: ___ σπίτι</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q22" value="a">
+                            <span>ο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q22" value="b">
+                            <span>η</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q22" value="c">
+                            <span>το</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 23</div>
+                    <div class="question-text">Choose the correct article: ___ καρέκλα</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q23" value="a">
+                            <span>ο</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q23" value="b">
+                            <span>η</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q23" value="c">
+                            <span>το</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 24</div>
+                    <div class="question-text">What gender is "κινηματογράφος"?</div>
+                    <input type="text" name="q24" placeholder="masculine, feminine, or neuter">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 25</div>
+                    <div class="question-text">Write the full form: ___ βιβλίο (the book)</div>
+                    <input type="text" name="q25" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 6: Verb Conjugation - μένω -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">6</span>
+                    Ρήμα "μένω" (Verb "to live")
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 26</div>
+                    <div class="question-text">Conjugate: εγώ ______ (μένω)</div>
+                    <input type="text" name="q26" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 27</div>
+                    <div class="question-text">Conjugate: εσύ ______ (μένω)</div>
+                    <input type="text" name="q27" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 28</div>
+                    <div class="question-text">Conjugate: αυτός/ή/ό ______ (μένω)</div>
+                    <input type="text" name="q28" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 29</div>
+                    <div class="question-text">Conjugate: εμείς ______ (μένω)</div>
+                    <input type="text" name="q29" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 30</div>
+                    <div class="question-text">Conjugate: αυτοί/ές/ά ______ (μένω)</div>
+                    <input type="text" name="q30" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 7: Verb Conjugation - είμαι -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">7</span>
+                    Ρήμα "είμαι" (Verb "to be")
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 31</div>
+                    <div class="question-text">Conjugate: εγώ ______ (είμαι)</div>
+                    <input type="text" name="q31" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 32</div>
+                    <div class="question-text">Conjugate: εσύ ______ (είμαι)</div>
+                    <input type="text" name="q32" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 33</div>
+                    <div class="question-text">Conjugate: αυτός/ή/ό ______ (είμαι)</div>
+                    <input type="text" name="q33" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 34</div>
+                    <div class="question-text">Conjugate: εμείς ______ (είμαι)</div>
+                    <input type="text" name="q34" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 35</div>
+                    <div class="question-text">Conjugate: εσείς ______ (είμαι)</div>
+                    <input type="text" name="q35" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Section 8: Conversations & Phrases -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">8</span>
+                    Συνομιλίες (Conversations)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 36</div>
+                    <div class="question-text">How do you say "Hello" informally?</div>
+                    <input type="text" name="q36" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 37</div>
+                    <div class="question-text">Translate: Πώς σε λένε;</div>
+                    <input type="text" name="q37" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 38</div>
+                    <div class="question-text">How do you say "My name is..."?</div>
+                    <input type="text" name="q38" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 39</div>
+                    <div class="question-text">Translate: Πού μένεις;</div>
+                    <input type="text" name="q39" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 40</div>
+                    <div class="question-text">How do you say "I live in Athens"?</div>
+                    <input type="text" name="q40" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 41</div>
+                    <div class="question-text">What does "Χαίρω πολύ" mean?</div>
+                    <input type="text" name="q41" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 42</div>
+                    <div class="question-text">Translate: Από πού είσαι;</div>
+                    <input type="text" name="q42" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 43</div>
+                    <div class="question-text">How do you say "I am from..." in Greek?</div>
+                    <input type="text" name="q43" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 44</div>
+                    <div class="question-text">Complete: Μένω ____ διαμέρισμα (I live in an apartment)</div>
+                    <input type="text" name="q44" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 45</div>
+                    <div class="question-text">What does "στην πόλη" mean?</div>
+                    <input type="text" name="q45" placeholder="Your answer">
+                </div>
+            </div>
+
+            <!-- Bonus Questions -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-number">★</span>
+                    Πρόσθετες Ερωτήσεις (Bonus Questions)
+                </h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 46</div>
+                    <div class="question-text">Write a short introduction in Greek (3-4 sentences) including your name, age, where you're from, and where you live.</div>
+                    <textarea name="q46" rows="4" placeholder="Write your introduction here..."></textarea>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 47</div>
+                    <div class="question-text">List 5 school items in Greek:</div>
+                    <textarea name="q47" rows="3" placeholder="1. _____ 2. _____ 3. _____ 4. _____ 5. _____"></textarea>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 48</div>
+                    <div class="question-text">Give the conjugation pattern for -ω verbs (present tense):</div>
+                    <input type="text" name="q48" placeholder="-ω, -εις, ...">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 49</div>
+                    <div class="question-text">Translate: "The museum is near the park"</div>
+                    <input type="text" name="q49" placeholder="Your answer">
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 50</div>
+                    <div class="question-text">How would you ask someone (formally) how old they are?</div>
+                    <input type="text" name="q50" placeholder="Your answer">
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">Submit Test</button>
+            </div>
+        </form>
+
+        <div class="results" id="results">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Test Submitted!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Your answers have been recorded. Review your responses and check them against the answer key provided by your teacher.</p>
+            <div class="score">Καλή επιτυχία!</div>
+            <p style="margin-top: 20px; opacity: 0.8;">Good luck!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Scroll to results
+            const results = document.getElementById('results');
+            results.classList.add('show');
+            results.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Optional: Log answers for review
+            const formData = new FormData(this);
+            console.log('Test Answers:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
+        });
+        
+        // Save progress to localStorage
+        const form = document.getElementById('testForm');
+        const inputs = form.querySelectorAll('input, textarea, select');
+        
+        inputs.forEach(input => {
+            // Load saved value
+            const saved = localStorage.getItem(input.name);
+            if (saved) {
+                if (input.type === 'radio') {
+                    if (input.value === saved) input.checked = true;
+                } else {
+                    input.value = saved;
+                }
+            }
+            
+            // Save on change
+            input.addEventListener('change', function() {
+                localStorage.setItem(this.name, this.value);
+            });
+        });
+    </script>
+</body>
+</html>

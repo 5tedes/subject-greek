@@ -123,6 +123,41 @@
             font-style: italic;
             margin-top: 10px;
         }
+        .nav-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .nav-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .nav-links a.test {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+        .nav-links a.test:hover {
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -159,6 +194,23 @@
             <button onclick="previousCard()">⬅️ Previous</button>
             <button onclick="shuffleCards()">🔀 Shuffle</button>
             <button onclick="nextCard()">Next ➡️</button>
+        </div>
+
+        <div class="nav-section">
+            <h3>Year 1 Semester 1</h3>
+            <div class="nav-links">
+                <a href="y1s1/flashcards-beginner.html">Beginner Flashcards</a>
+                <a href="y1s1/practice-exam.html" class="test">Practice Exam</a>
+                <a href="y1s1/practice-test-2.html" class="test">Practice Test 2</a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h3>Year 1 Semester 2</h3>
+            <div class="nav-links">
+                <a href="y1s2/flashcards-family.html">Family Flashcards (Unit 3)</a>
+                <a href="y1s2/practice-test-family.html" class="test">Family Test (Unit 3)</a>
+            </div>
         </div>
     </div>
 

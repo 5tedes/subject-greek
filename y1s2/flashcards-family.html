@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Family Flashcards - Unit 3</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .flashcard {
+            perspective: 1000px;
+            height: 300px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .card-main {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-sub {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #e74c3c;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #c0392b;
+        }
+        .counter {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .category-filter {
+            text-align: center;
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #e74c3c;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+        }
+        .hint {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Η Οικογένεια μου</h1>
+        <p class="subtitle">Unit 3: My Family - Click to flip!</p>
+
+        <div class="category-filter">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="family">Family Members</option>
+                <option value="possessive">Possessive Pronouns</option>
+                <option value="verbs-echo">Verb: έχω (to have)</option>
+                <option value="verbs-eimai">Verb: είμαι (to be)</option>
+                <option value="verbs-agapao">Verb: αγαπάω (to love)</option>
+                <option value="adjectives">Adjectives</option>
+                <option value="countries">Countries & Nationalities</option>
+            </select>
+        </div>
+
+        <div class="counter" id="counter">Card 1 of 80</div>
+
+        <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+                <div class="flashcard-front">
+                    <div class="card-main">Loading...</div>
+                    <div class="card-sub"></div>
+                </div>
+                <div class="flashcard-back">
+                    <div class="card-main">Loading...</div>
+                    <div class="card-sub"></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="hint">Use arrow keys to navigate, space/up/down to flip</p>
+
+        <div class="controls">
+            <button onclick="previousCard()">Previous</button>
+            <button onclick="shuffleCards()">Shuffle</button>
+            <button onclick="nextCard()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            // Family Members
+            {category: 'family', front: 'η μαμά', frontSub: '(i mama)', back: 'mom', backSub: 'informal'},
+            {category: 'family', front: 'η μητέρα', frontSub: '(i mitera)', back: 'mother', backSub: 'formal'},
+            {category: 'family', front: 'ο μπαμπάς', frontSub: '(o babas)', back: 'dad', backSub: 'informal'},
+            {category: 'family', front: 'ο πατέρας', frontSub: '(o pateras)', back: 'father', backSub: 'formal'},
+            {category: 'family', front: 'οι γονείς', frontSub: '(i goneis)', back: 'parents', backSub: 'plural'},
+            {category: 'family', front: 'ο αδελφός', frontSub: '(o adelfos)', back: 'brother', backSub: 'masculine'},
+            {category: 'family', front: 'η αδελφή', frontSub: '(i adelfi)', back: 'sister', backSub: 'feminine'},
+            {category: 'family', front: 'τα αδέλφια', frontSub: '(ta adelfia)', back: 'siblings', backSub: 'plural neuter'},
+            {category: 'family', front: 'ο γιος', frontSub: '(o gios)', back: 'son', backSub: 'masculine'},
+            {category: 'family', front: 'η κόρη', frontSub: '(i kori)', back: 'daughter', backSub: 'feminine'},
+            {category: 'family', front: 'τα παιδιά', frontSub: '(ta pedia)', back: 'children', backSub: 'plural neuter'},
+            {category: 'family', front: 'ο παππούς', frontSub: '(o papous)', back: 'grandfather', backSub: 'masculine'},
+            {category: 'family', front: 'η γιαγιά', frontSub: '(i yiayia)', back: 'grandmother', backSub: 'feminine'},
+            {category: 'family', front: 'οι παππούδες', frontSub: '(i papoudes)', back: 'grandparents', backSub: 'plural'},
+            {category: 'family', front: 'ο εγγονός', frontSub: '(o egonos)', back: 'grandson', backSub: 'masculine'},
+            {category: 'family', front: 'η εγγονή', frontSub: '(i egoni)', back: 'granddaughter', backSub: 'feminine'},
+            {category: 'family', front: 'ο ξάδελφος', frontSub: '(o xadelfos)', back: 'cousin (male)', backSub: 'masculine'},
+            {category: 'family', front: 'η ξαδέλφη', frontSub: '(i xadelfi)', back: 'cousin (female)', backSub: 'feminine'},
+            {category: 'family', front: 'τα ξαδέλφια', frontSub: '(ta xadelfia)', back: 'cousins', backSub: 'plural'},
+            {category: 'family', front: 'ο θείος', frontSub: '(o theios)', back: 'uncle', backSub: 'masculine'},
+            {category: 'family', front: 'η θεία', frontSub: '(i theia)', back: 'aunt', backSub: 'feminine'},
+            {category: 'family', front: 'η γυναίκα', frontSub: '(i gynaika)', back: 'wife / woman', backSub: 'feminine'},
+            {category: 'family', front: 'ο άντρας', frontSub: '(o antras)', back: 'husband / man', backSub: 'masculine'},
+            {category: 'family', front: 'το μωρό', frontSub: '(to moro)', back: 'baby', backSub: 'neuter'},
+
+            // Possessive Pronouns
+            {category: 'possessive', front: 'μου', frontSub: '(mou)', back: 'my', backSub: 'εγώ → μου'},
+            {category: 'possessive', front: 'σου', frontSub: '(sou)', back: 'your (singular)', backSub: 'εσύ → σου'},
+            {category: 'possessive', front: 'του', frontSub: '(tou)', back: 'his / its', backSub: 'αυτός/αυτό → του'},
+            {category: 'possessive', front: 'της', frontSub: '(tis)', back: 'her', backSub: 'αυτή → της'},
+            {category: 'possessive', front: 'μας', frontSub: '(mas)', back: 'our', backSub: 'εμείς → μας'},
+            {category: 'possessive', front: 'σας', frontSub: '(sas)', back: 'your (plural/formal)', backSub: 'εσείς → σας'},
+            {category: 'possessive', front: 'τους', frontSub: '(tous)', back: 'their', backSub: 'αυτοί/αυτές/αυτά → τους'},
+            {category: 'possessive', front: 'ο αδελφός μου', frontSub: '', back: 'my brother', backSub: 'noun + μου'},
+            {category: 'possessive', front: 'η μαμά σου', frontSub: '', back: 'your mom', backSub: 'noun + σου'},
+            {category: 'possessive', front: 'το σπίτι μας', frontSub: '', back: 'our house', backSub: 'noun + μας'},
+
+            // Verb έχω (to have)
+            {category: 'verbs-echo', front: 'εγώ έχω', frontSub: '(ego echo)', back: 'I have', backSub: '1st person singular'},
+            {category: 'verbs-echo', front: 'εσύ έχεις', frontSub: '(esy echeis)', back: 'you have', backSub: '2nd person singular'},
+            {category: 'verbs-echo', front: 'αυτός/ή/ό έχει', frontSub: '(aftos/i/o echei)', back: 'he/she/it has', backSub: '3rd person singular'},
+            {category: 'verbs-echo', front: 'εμείς έχουμε', frontSub: '(emeis echoume)', back: 'we have', backSub: '1st person plural'},
+            {category: 'verbs-echo', front: 'εσείς έχετε', frontSub: '(eseis echete)', back: 'you have', backSub: '2nd person plural'},
+            {category: 'verbs-echo', front: 'αυτοί/ές/ά έχουν', frontSub: '(aftoi/es/a echoun)', back: 'they have', backSub: '3rd person plural'},
+            {category: 'verbs-echo', front: 'I have', frontSub: '', back: 'έχω', backSub: '(echo)'},
+            {category: 'verbs-echo', front: 'you have (sing.)', frontSub: '', back: 'έχεις', backSub: '(echeis)'},
+            {category: 'verbs-echo', front: 'he/she has', frontSub: '', back: 'έχει', backSub: '(echei)'},
+            {category: 'verbs-echo', front: 'we have', frontSub: '', back: 'έχουμε', backSub: '(echoume)'},
+            {category: 'verbs-echo', front: 'you have (pl.)', frontSub: '', back: 'έχετε', backSub: '(echete)'},
+            {category: 'verbs-echo', front: 'they have', frontSub: '', back: 'έχουν', backSub: '(echoun)'},
+
+            // Verb είμαι (to be)
+            {category: 'verbs-eimai', front: 'εγώ είμαι', frontSub: '(ego eimai)', back: 'I am', backSub: '1st person singular'},
+            {category: 'verbs-eimai', front: 'εσύ είσαι', frontSub: '(esy eisai)', back: 'you are', backSub: '2nd person singular'},
+            {category: 'verbs-eimai', front: 'αυτός/ή/ό είναι', frontSub: '(aftos/i/o einai)', back: 'he/she/it is', backSub: '3rd person singular'},
+            {category: 'verbs-eimai', front: 'εμείς είμαστε', frontSub: '(emeis eimaste)', back: 'we are', backSub: '1st person plural'},
+            {category: 'verbs-eimai', front: 'εσείς είστε', frontSub: '(eseis eiste)', back: 'you are', backSub: '2nd person plural'},
+            {category: 'verbs-eimai', front: 'αυτοί/ές/ά είναι', frontSub: '(aftoi/es/a einai)', back: 'they are', backSub: '3rd person plural'},
+            {category: 'verbs-eimai', front: 'I am', frontSub: '', back: 'είμαι', backSub: '(eimai)'},
+            {category: 'verbs-eimai', front: 'you are (sing.)', frontSub: '', back: 'είσαι', backSub: '(eisai)'},
+            {category: 'verbs-eimai', front: 'he/she/it is', frontSub: '', back: 'είναι', backSub: '(einai)'},
+            {category: 'verbs-eimai', front: 'we are', frontSub: '', back: 'είμαστε', backSub: '(eimaste)'},
+            {category: 'verbs-eimai', front: 'you are (pl.)', frontSub: '', back: 'είστε', backSub: '(eiste)'},
+            {category: 'verbs-eimai', front: 'they are', frontSub: '', back: 'είναι', backSub: '(einai)'},
+
+            // Verb αγαπάω (to love) - -αω verbs
+            {category: 'verbs-agapao', front: 'εγώ αγαπάω/αγαπώ', frontSub: '(ego agapao/agapo)', back: 'I love', backSub: '1st person singular'},
+            {category: 'verbs-agapao', front: 'εσύ αγαπάς', frontSub: '(esy agapas)', back: 'you love', backSub: '2nd person singular'},
+            {category: 'verbs-agapao', front: 'αυτός/ή/ό αγαπάει/αγαπά', frontSub: '(aftos agapaei/agapa)', back: 'he/she/it loves', backSub: '3rd person singular'},
+            {category: 'verbs-agapao', front: 'εμείς αγαπάμε', frontSub: '(emeis agapame)', back: 'we love', backSub: '1st person plural'},
+            {category: 'verbs-agapao', front: 'εσείς αγαπάτε', frontSub: '(eseis agapate)', back: 'you love', backSub: '2nd person plural'},
+            {category: 'verbs-agapao', front: 'αυτοί/ές/ά αγαπάνε/αγαπούν', frontSub: '(aftoi agapane/agapoun)', back: 'they love', backSub: '3rd person plural'},
+            {category: 'verbs-agapao', front: '-αω verb pattern', frontSub: 'present tense', back: '-άω/-ώ, -άς, -άει/-ά, -άμε, -άτε, -άνε/-ούν', backSub: 'all persons'},
+            {category: 'verbs-agapao', front: 'I ask', frontSub: 'ρωτάω', back: 'ρωτάω', backSub: '(rotao)'},
+            {category: 'verbs-agapao', front: 'I speak', frontSub: 'μιλάω', back: 'μιλάω', backSub: '(milao)'},
+            {category: 'verbs-agapao', front: 'I greet', frontSub: 'χαιρετάω', back: 'χαιρετάω', backSub: '(cheretao)'},
+
+            // Adjectives
+            {category: 'adjectives', front: 'κοντός/κοντή/κοντό', frontSub: '(kontos)', back: 'short', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'ψηλός/ψηλή/ψηλό', frontSub: '(psilos)', back: 'tall', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'μικρός/μικρή/μικρό', frontSub: '(mikros)', back: 'small / young', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'μεγάλος/μεγάλη/μεγάλο', frontSub: '(megalos)', back: 'big / old', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'χοντρός/χοντρή/χοντρό', frontSub: '(chontros)', back: 'fat', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'αδύνατος/αδύνατη/αδύνατο', frontSub: '(adynatos)', back: 'thin / slim', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'μελαχρινός/μελαχρινή/μελαχρινό', frontSub: '(melachrinos)', back: 'dark-haired', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'ξανθός/ξανθιά/ξανθό', frontSub: '(xanthos)', back: 'blonde', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'όμορφος/όμορφη/όμορφο', frontSub: '(omorfos)', back: 'beautiful', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'ωραίος/ωραία/ωραίο', frontSub: '(oraios)', back: 'nice / beautiful', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'άσχημος/άσχημη/άσχημο', frontSub: '(aschimos)', back: 'ugly', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'νέος/νέα/νέο', frontSub: '(neos)', back: 'young / new', backSub: 'masc/fem/neut'},
+            {category: 'adjectives', front: 'γέρος/γριά', frontSub: '(geros/gria)', back: 'old (person)', backSub: 'masc/fem'},
+            {category: 'adjectives', front: 'μοντέρνος/μοντέρνα/μοντέρνο', frontSub: '(monternes)', back: 'modern', backSub: 'masc/fem/neut'},
+
+            // Countries, Languages, Nationalities
+            {category: 'countries', front: 'Ελλάδα', frontSub: '(Ellada)', back: 'Greece', backSub: 'η Ελλάδα'},
+            {category: 'countries', front: 'ελληνικά', frontSub: '(ellinika)', back: 'Greek (language)', backSub: 'τα ελληνικά'},
+            {category: 'countries', front: 'Έλληνας/Ελληνίδα', frontSub: '(Ellinas/Ellinida)', back: 'Greek (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Ιταλία', frontSub: '(Italia)', back: 'Italy', backSub: 'η Ιταλία'},
+            {category: 'countries', front: 'ιταλικά', frontSub: '(italika)', back: 'Italian (language)', backSub: 'τα ιταλικά'},
+            {category: 'countries', front: 'Ιταλός/Ιταλίδα', frontSub: '(Italos/Italida)', back: 'Italian (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Ισπανία', frontSub: '(Ispania)', back: 'Spain', backSub: 'η Ισπανία'},
+            {category: 'countries', front: 'ισπανικά', frontSub: '(ispanika)', back: 'Spanish (language)', backSub: 'τα ισπανικά'},
+            {category: 'countries', front: 'Ισπανός/Ισπανίδα', frontSub: '(Ispanos/Ispanida)', back: 'Spanish (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Γερμανία', frontSub: '(Germania)', back: 'Germany', backSub: 'η Γερμανία'},
+            {category: 'countries', front: 'γερμανικά', frontSub: '(germanika)', back: 'German (language)', backSub: 'τα γερμανικά'},
+            {category: 'countries', front: 'Γερμανός/Γερμανίδα', frontSub: '(Germanos/Germanida)', back: 'German (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Κίνα', frontSub: '(Kina)', back: 'China', backSub: 'η Κίνα'},
+            {category: 'countries', front: 'κινέζικα', frontSub: '(kinezika)', back: 'Chinese (language)', backSub: 'τα κινέζικα'},
+            {category: 'countries', front: 'Κινέζος/Κινέζα', frontSub: '(Kinezos/Kineza)', back: 'Chinese (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Ρωσία', frontSub: '(Rosia)', back: 'Russia', backSub: 'η Ρωσία'},
+            {category: 'countries', front: 'ρωσικά', frontSub: '(rosika)', back: 'Russian (language)', backSub: 'τα ρωσικά'},
+            {category: 'countries', front: 'Ρώσος/Ρωσίδα', frontSub: '(Rosos/Rosida)', back: 'Russian (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Κύπρος', frontSub: '(Kypros)', back: 'Cyprus', backSub: 'η Κύπρος'},
+            {category: 'countries', front: 'Κύπριος/Κύπρια', frontSub: '(Kyprios/Kypria)', back: 'Cypriot (person)', backSub: 'masc/fem'},
+            {category: 'countries', front: 'Ιράν', frontSub: '(Iran)', back: 'Iran', backSub: 'το Ιράν'},
+            {category: 'countries', front: 'περσικά', frontSub: '(persika)', back: 'Persian (language)', backSub: 'τα περσικά'},
+            {category: 'countries', front: 'Ιρανός/Ιρανή', frontSub: '(Iranos/Irani)', back: 'Iranian (person)', backSub: 'masc/fem'}
+        ];
+
+        let currentIndex = 0;
+        let filteredCards = [...flashcards];
+
+        function updateCard() {
+            const card = filteredCards[currentIndex];
+            const flashcardElement = document.getElementById('flashcard');
+            const frontMain = flashcardElement.querySelector('.flashcard-front .card-main');
+            const frontSub = flashcardElement.querySelector('.flashcard-front .card-sub');
+            const backMain = flashcardElement.querySelector('.flashcard-back .card-main');
+            const backSub = flashcardElement.querySelector('.flashcard-back .card-sub');
+
+            frontMain.textContent = card.front;
+            frontSub.textContent = card.frontSub;
+            backMain.textContent = card.back;
+            backSub.textContent = card.backSub;
+
+            flashcardElement.classList.remove('flipped');
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('counter').textContent =
+                `Card ${currentIndex + 1} of ${filteredCards.length}`;
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % filteredCards.length;
+            updateCard();
+        }
+
+        function previousCard() {
+            currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+            updateCard();
+        }
+
+        function shuffleCards() {
+            for (let i = filteredCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        document.getElementById('flashcard').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            const category = this.value;
+            if (category === 'all') {
+                filteredCards = [...flashcards];
+            } else {
+                filteredCards = flashcards.filter(card => card.category === category);
+            }
+            currentIndex = 0;
+            updateCard();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextCard();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousCard();
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                document.getElementById('flashcard').classList.toggle('flipped');
+            }
+        });
+
+        updateCard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Practice Test - Unit 3: Family</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .passage {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+            font-style: italic;
+        }
+        .options label {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .options label:hover {
+            background: #e0e0e0;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 150px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .fill-blank {
+            display: inline-block;
+            min-width: 120px;
+            border-bottom: 2px solid #667eea;
+            margin: 0 5px;
+        }
+        .true-false-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .true-false-table th, .true-false-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .true-false-table th {
+            background: #667eea;
+            color: white;
+        }
+        .true-false-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+        }
+        textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            margin: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn:hover {
+            background: #5a6fd6;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background: #27ae60;
+        }
+        .btn-success:hover {
+            background: #219a52;
+        }
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .score {
+            text-align: center;
+            font-size: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        .correct {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+        .incorrect {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+        .answer-key {
+            color: #28a745;
+            font-weight: bold;
+            display: none;
+        }
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Τεστ Εξάσκησης - Ενότητα 3</h1>
+        <p class="subtitle">Practice Test - Unit 3: My Family (Η Οικογένεια μου)</p>
+
+        <!-- Section A: Reading Comprehension -->
+        <div class="section">
+            <h2>A. ΚΑΤΑΝΟΗΣΗ ΓΡΑΠΤΟΥ ΛΟΓΟΥ (Reading Comprehension)</h2>
+
+            <div class="question">
+                <p class="question-number">Question 1: Read the text and choose the correct answer.</p>
+                <div class="passage">
+                    "Γειά σας! Είμαι η Ελένη και είμαι 13 χρονών και μένω με την οικογένειά μου στην Πάτρα. Ο μπαμπάς μου είναι ο Δημήτρης και η μαμά μου είναι η Μαρία. Ο μπαμπάς μου είναι ψηλός και χοντρός. Η μαμά μου είναι ξανθιά και όμορφη. Η μαμά μου μιλάει 3 ξένες γλώσσες: αγγλικά, γερμανικά και κινέζικα. Η αδερφή μου η Κωνσταντίνα είναι 20 χρονών. Ο αδερφός μου ο Σπύρος είναι 6 χρονών.<br><br>
+                    Το Σάββατο πηγαίνουμε όλοι μαζί στον κινηματογράφο και περνάμε υπέροχα.<br><br>
+                    Το σχολείο μου είναι κοντά στο σπίτι μας και πηγαίνω με τα πόδια κάθε μέρα. Οι φίλοι μου είναι πολύ καλοί και πηγαίνουμε στο πάρκο."
+                </div>
+
+                <p><strong>1. Πού μένει η Ελένη;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_1" value="a"> α. Στην Πάτρα</label>
+                    <label><input type="radio" name="q1_1" value="b"> β. Στην Αθήνα</label>
+                    <label><input type="radio" name="q1_1" value="c"> γ. Στη Θεσσαλονίκη</label>
+                </div>
+                <p class="answer-key" id="ans1_1">Correct: α. Στην Πάτρα</p>
+
+                <p><strong>2. Πόσων χρονών είναι η Ελένη;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_2" value="a"> α. 20 χρονών</label>
+                    <label><input type="radio" name="q1_2" value="b"> β. 6 χρονών</label>
+                    <label><input type="radio" name="q1_2" value="c"> γ. 13 χρονών</label>
+                </div>
+                <p class="answer-key" id="ans1_2">Correct: γ. 13 χρονών</p>
+
+                <p><strong>3. Τι κάνουν το Σάββατο;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_3" value="a"> α. Πηγαίνουν για ψώνια</label>
+                    <label><input type="radio" name="q1_3" value="b"> β. Πηγαίνουν στον κινηματογράφο</label>
+                    <label><input type="radio" name="q1_3" value="c"> γ. Κάνουν εκδρομές</label>
+                </div>
+                <p class="answer-key" id="ans1_3">Correct: β. Πηγαίνουν στον κινηματογράφο</p>
+
+                <p><strong>4. Ποια είναι η Κωνσταντίνα;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_4" value="a"> α. η αδελφή της Ελένης</label>
+                    <label><input type="radio" name="q1_4" value="b"> β. η μαμά της Ελένης</label>
+                    <label><input type="radio" name="q1_4" value="c"> γ. ο αδελφός της Ελένης</label>
+                </div>
+                <p class="answer-key" id="ans1_4">Correct: α. η αδελφή της Ελένης</p>
+
+                <p><strong>5. Ποιες ηλικίες έχουν η Κωνσταντίνα και ο Σπύρος;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_5" value="a"> α. 20 και 6</label>
+                    <label><input type="radio" name="q1_5" value="b"> β. 6 και 20</label>
+                    <label><input type="radio" name="q1_5" value="c"> γ. 20 και 10</label>
+                </div>
+                <p class="answer-key" id="ans1_5">Correct: α. 20 και 6</p>
+
+                <p><strong>6. Ποιος είναι ψηλός και χοντρός;</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_6" value="a"> α. ο Σπύρος</label>
+                    <label><input type="radio" name="q1_6" value="b"> β. ο μπαμπάς</label>
+                    <label><input type="radio" name="q1_6" value="c"> γ. ο παππούς</label>
+                </div>
+                <p class="answer-key" id="ans1_6">Correct: β. ο μπαμπάς</p>
+
+                <p><strong>7. Η μαμά της Ελένης είναι:</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1_7" value="a"> α. νέα και όμορφη</label>
+                    <label><input type="radio" name="q1_7" value="b"> β. ξανθιά και μοντέρνα</label>
+                    <label><input type="radio" name="q1_7" value="c"> γ. ξανθιά και όμορφη</label>
+                </div>
+                <p class="answer-key" id="ans1_7">Correct: γ. ξανθιά και όμορφη</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 2: Fill in the family relationships.</p>
+                <div class="passage">
+                    "Γεια σας! Είμαι ο Γιάννης και η οικογένειά μου είναι πολύ αγαπημένη. Η μητέρα μου είναι η Αθηνά και ο πατέρας μου είναι ο Γιώργος. Η αδερφή μου η Εύα είναι μικρότερη και ο αδερφός μου ο Αλέξανδρος είναι μεγαλύτερος. Είμαι παντρεμένος με την Άννα και έχουμε δύο παιδιά, τον Νίκο και τη Σοφία."
+                </div>
+
+                <p>1. Η Αθηνά είναι <input type="text" id="q2_1" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_1">Correct: η μητέρα</p>
+
+                <p>2. Ο Γιώργος είναι <input type="text" id="q2_2" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_2">Correct: ο πατέρας</p>
+
+                <p>3. Ο Αλέξανδρος είναι <input type="text" id="q2_3" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_3">Correct: ο αδελφός</p>
+
+                <p>4. Η Άννα είναι <input type="text" id="q2_4" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_4">Correct: η γυναίκα</p>
+
+                <p>5. Ο Νίκος είναι <input type="text" id="q2_5" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_5">Correct: ο γιος</p>
+
+                <p>6. Η Σοφία είναι <input type="text" id="q2_6" placeholder="..."> του Γιάννη.</p>
+                <p class="answer-key" id="ans2_6">Correct: η κόρη</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 3: Read the dialogue and mark TRUE or FALSE.</p>
+                <div class="passage">
+                    <strong>Λίνα:</strong> Γειά σου Κώστα. Τι κάνεις;<br>
+                    <strong>Κώστας:</strong> Γειά σου Λίνα. Είμαι πολύ καλά. Εσύ;<br>
+                    <strong>Λίνα:</strong> Καλά, ευχαριστώ.<br>
+                    <strong>Κώστας:</strong> Ποιος είναι αυτός;<br>
+                    <strong>Λίνα:</strong> Αυτός είναι ο φίλος μου ο Παύλος, είναι από την Ιταλία.<br>
+                    <strong>Κώστας:</strong> Γειά σου Παύλο. Μιλάς ελληνικά;<br>
+                    <strong>Παύλος:</strong> Ναι, μιλάω ελληνικά και γαλλικά. Εσύ ποιες γλώσσες μιλάς;<br>
+                    <strong>Κώστας:</strong> Μιλάω ελληνικά, αγγλικά και ιταλικά.<br>
+                    <strong>Παύλος:</strong> Μιλάς γαλλικά;<br>
+                    <strong>Κώστας:</strong> Όχι!<br>
+                    <strong>Λίνα:</strong> Εγώ μιλάω γαλλικά!<br>
+                    <strong>Παύλος:</strong> Από πού είσαι Κώστα;<br>
+                    <strong>Κώστας:</strong> Είμαι από την Ελλάδα. Εσύ είσαι Ιταλός;<br>
+                    <strong>Παύλος:</strong> Ναι, είμαι Ιταλός. Η μαμά μου όμως είναι Αμερικανίδα.
+                </div>
+
+                <table class="true-false-table">
+                    <tr>
+                        <th>#</th>
+                        <th>Πρόταση</th>
+                        <th>ΣΩΣΤΟ</th>
+                        <th>ΛΑΘΟΣ</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td style="text-align: left;">Ο Παύλος είναι φίλος της Λίνας.</td>
+                        <td><input type="radio" name="q3_1" value="true"></td>
+                        <td><input type="radio" name="q3_1" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td style="text-align: left;">Ο Παύλος μιλά ελληνικά και γαλλικά.</td>
+                        <td><input type="radio" name="q3_2" value="true"></td>
+                        <td><input type="radio" name="q3_2" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td style="text-align: left;">Ο Κώστας μιλά γαλλικά.</td>
+                        <td><input type="radio" name="q3_3" value="true"></td>
+                        <td><input type="radio" name="q3_3" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td style="text-align: left;">Η Λίνα μιλά γαλλικά.</td>
+                        <td><input type="radio" name="q3_4" value="true"></td>
+                        <td><input type="radio" name="q3_4" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td style="text-align: left;">Ο Κώστας είναι Αμερικανός.</td>
+                        <td><input type="radio" name="q3_5" value="true"></td>
+                        <td><input type="radio" name="q3_5" value="false"></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td style="text-align: left;">Η μαμά του Παύλου είναι Αμερικανίδα.</td>
+                        <td><input type="radio" name="q3_6" value="true"></td>
+                        <td><input type="radio" name="q3_6" value="false"></td>
+                    </tr>
+                </table>
+                <p class="answer-key" id="ans3">Answers: 1-ΣΩΣΤΟ, 2-ΣΩΣΤΟ, 3-ΛΑΘΟΣ, 4-ΣΩΣΤΟ, 5-ΛΑΘΟΣ, 6-ΣΩΣΤΟ</p>
+            </div>
+        </div>
+
+        <!-- Section B: Grammar -->
+        <div class="section">
+            <h2>B. ΓΡΑΜΜΑΤΙΚΗ (Grammar)</h2>
+
+            <div class="question">
+                <p class="question-number">Question 1: Fill in with the correct Possessive Pronoun.</p>
+
+                <p>1. Το βιβλίο <input type="text" id="q4_1" placeholder="..."> είναι πάνω στο θρανίο. (εγώ)</p>
+                <p class="answer-key" id="ans4_1">Correct: μου</p>
+
+                <p>2. Το σπίτι <input type="text" id="q4_2" placeholder="..."> είναι κοντά στο σχολείο. (εμείς)</p>
+                <p class="answer-key" id="ans4_2">Correct: μας</p>
+
+                <p>3. Η καρέκλα <input type="text" id="q4_3" placeholder="..."> είναι δίπλα στην πόρτα. (αυτοί)</p>
+                <p class="answer-key" id="ans4_3">Correct: τους</p>
+
+                <p>4. Ο παππούς <input type="text" id="q4_4" placeholder="..."> είναι στην αυλή. (εσύ)</p>
+                <p class="answer-key" id="ans4_4">Correct: σου</p>
+
+                <p>5. Η μητέρα <input type="text" id="q4_5" placeholder="..."> είναι στην κουζίνα. (αυτή)</p>
+                <p class="answer-key" id="ans4_5">Correct: της</p>
+
+                <p>6. Η τσάντα <input type="text" id="q4_6" placeholder="..."> είναι πάνω στο τραπέζι. (εγώ)</p>
+                <p class="answer-key" id="ans4_6">Correct: μου</p>
+
+                <p>7. Το παράθυρο <input type="text" id="q4_7" placeholder="..."> είναι ανοιχτό. (εμείς)</p>
+                <p class="answer-key" id="ans4_7">Correct: μας</p>
+
+                <p>8. Η τηλεόραση <input type="text" id="q4_8" placeholder="..."> είναι στο σαλόνι. (αυτοί)</p>
+                <p class="answer-key" id="ans4_8">Correct: τους</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 2: Find the error and correct it.</p>
+                <p class="instructions">Write the corrected word(s) in the box.</p>
+
+                <p>1. Η καρέκλα μου είναι μεγάλο. <input type="text" id="q5_1" placeholder="Correction..."></p>
+                <p class="answer-key" id="ans5_1">Correct: μεγάλη</p>
+
+                <p>2. Ο αδερφός μου είναι ψηλή. <input type="text" id="q5_2" placeholder="Correction..."></p>
+                <p class="answer-key" id="ans5_2">Correct: ψηλός</p>
+
+                <p>3. Η μαμά μου είναι γρήγορη αλλά ο μπαμπάς μου είναι αργή. <input type="text" id="q5_3" placeholder="Correction..."></p>
+                <p class="answer-key" id="ans5_3">Correct: αργός</p>
+
+                <p>4. Το σχολείο μου είναι όμορφος και μεγάλος. <input type="text" id="q5_4" placeholder="Correction..."></p>
+                <p class="answer-key" id="ans5_4">Correct: όμορφο και μεγάλο</p>
+
+                <p>5. Η μπάλα είναι μέσα στην μικρός κουτί. <input type="text" id="q5_5" placeholder="Correction..."></p>
+                <p class="answer-key" id="ans5_5">Correct: μικρό</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 3: Fill in the adjective in the correct form.</p>
+
+                <p>1. Η Μαρία είναι <input type="text" id="q6_1" placeholder="..."> (ωραίος)</p>
+                <p class="answer-key" id="ans6_1">Correct: ωραία</p>
+
+                <p>2. Ο Πέτρος είναι <input type="text" id="q6_2" placeholder="..."> (ψηλός)</p>
+                <p class="answer-key" id="ans6_2">Correct: ψηλός</p>
+
+                <p>3. Το παιδί είναι <input type="text" id="q6_3" placeholder="..."> (ωραίος)</p>
+                <p class="answer-key" id="ans6_3">Correct: ωραίο</p>
+
+                <p>4. Ο μπαμπάς μου είναι <input type="text" id="q6_4" placeholder="..."> (μελαχρινός) και <input type="text" id="q6_5" placeholder="..."> (αδύνατος)</p>
+                <p class="answer-key" id="ans6_4">Correct: μελαχρινός, αδύνατος</p>
+
+                <p>5. Η μαμά μου είναι <input type="text" id="q6_6" placeholder="..."> (νέος) και <input type="text" id="q6_7" placeholder="..."> (αδύνατος)</p>
+                <p class="answer-key" id="ans6_6">Correct: νέα, αδύνατη</p>
+
+                <p>6. Η αδελφή μου είναι <input type="text" id="q6_8" placeholder="..."> (ξανθός) και <input type="text" id="q6_9" placeholder="..."> (μικρός)</p>
+                <p class="answer-key" id="ans6_8">Correct: ξανθιά, μικρή</p>
+
+                <p>7. Το παιδί είναι <input type="text" id="q6_10" placeholder="..."> (γλυκός)</p>
+                <p class="answer-key" id="ans6_10">Correct: γλυκό</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 4: Fill in the language.</p>
+
+                <p>1. Είμαι ο Γιάννης. Είμαι Έλληνας. Μιλάω <input type="text" id="q7_1" placeholder="...">.</p>
+                <p class="answer-key" id="ans7_1">Correct: ελληνικά</p>
+
+                <p>2. Είμαι η Ελένη. Είμαι Γαλλίδα. Μιλάω <input type="text" id="q7_2" placeholder="...">.</p>
+                <p class="answer-key" id="ans7_2">Correct: γαλλικά</p>
+
+                <p>3. Είμαι ο Νίκος. Είμαι Ιταλός. Μιλάω <input type="text" id="q7_3" placeholder="...">.</p>
+                <p class="answer-key" id="ans7_3">Correct: ιταλικά</p>
+
+                <p>4. Είμαι η Μαρία. Είμαι Ισπανίδα. Μιλάω <input type="text" id="q7_4" placeholder="...">.</p>
+                <p class="answer-key" id="ans7_4">Correct: ισπανικά</p>
+
+                <p>5. Είμαι ο Μίσια. Είμαι <input type="text" id="q7_5" placeholder="...">. Μιλάω ρωσικά.</p>
+                <p class="answer-key" id="ans7_5">Correct: Ρώσος</p>
+            </div>
+
+            <div class="question">
+                <p class="question-number">Question 5: Fill in with the correct form of the verb.</p>
+
+                <p>1. Εσύ <input type="text" id="q8_1" placeholder="..."> το ποδήλατο στο πάρκο. (περνάω)</p>
+                <p class="answer-key" id="ans8_1">Correct: περνάς</p>
+
+                <p>2. Η Άννα <input type="text" id="q8_2" placeholder="..."> αγγλικά. (μιλάω)</p>
+                <p class="answer-key" id="ans8_2">Correct: μιλάει / μιλά</p>
+
+                <p>3. Εμείς <input type="text" id="q8_3" placeholder="..."> κάθε πρωί στην τάξη. (χαιρετάω)</p>
+                <p class="answer-key" id="ans8_3">Correct: χαιρετάμε</p>
+
+                <p>4. Ο Νίκος <input type="text" id="q8_4" placeholder="..."> 15 χρονών. (είμαι)</p>
+                <p class="answer-key" id="ans8_4">Correct: είναι</p>
+
+                <p>5. Εσείς <input type="text" id="q8_5" placeholder="..."> δύο αδέρφια. (έχω)</p>
+                <p class="answer-key" id="ans8_5">Correct: έχετε</p>
+
+                <p>6. Εμείς <input type="text" id="q8_6" placeholder="..."> αδέρφια. (είμαι)</p>
+                <p class="answer-key" id="ans8_6">Correct: είμαστε</p>
+
+                <p>7. Αυτοί <input type="text" id="q8_7" placeholder="..."> αδύνατοι. (είμαι)</p>
+                <p class="answer-key" id="ans8_7">Correct: είναι</p>
+
+                <p>8. Ο Γιώργος <input type="text" id="q8_8" placeholder="..."> μουστάκι. (έχω)</p>
+                <p class="answer-key" id="ans8_8">Correct: έχει</p>
+
+                <p>9. Η Κατερίνα <input type="text" id="q8_9" placeholder="..."> γυαλιά. (έχω)</p>
+                <p class="answer-key" id="ans8_9">Correct: έχει</p>
+
+                <p>10. Εσείς <input type="text" id="q8_10" placeholder="..."> μεγάλοι. (είμαι)</p>
+                <p class="answer-key" id="ans8_10">Correct: είστε</p>
+            </div>
+        </div>
+
+        <!-- Section C: Writing -->
+        <div class="section">
+            <h2>Γ. ΠΑΡΑΓΩΓΗ ΓΡΑΠΤΟΥ ΛΟΓΟΥ (Writing)</h2>
+
+            <div class="question">
+                <p class="question-number">Question 1: In a paragraph of 40 words, describe a member of your family.</p>
+                <p class="instructions">Include: όνομα (name), ηλικία (age), εθνικότητα (nationality), ποιες γλώσσες μιλάει (languages spoken), και 3 επίθετα (3 adjectives to describe them).</p>
+                <textarea id="writing1" placeholder="Write your answer here in Greek..."></textarea>
+            </div>
+        </div>
+
+        <div class="score" id="scoreDisplay"></div>
+
+        <div class="controls">
+            <button class="btn" onclick="checkAnswers()">Check Answers</button>
+            <button class="btn btn-success" onclick="showAnswers()">Show All Answers</button>
+            <button class="btn" onclick="resetTest()">Reset Test</button>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            // Section A - Q1
+            q1_1: 'a', q1_2: 'c', q1_3: 'b', q1_4: 'a', q1_5: 'a', q1_6: 'b', q1_7: 'c',
+            // Section A - Q2
+            q2_1: ['η μητέρα', 'μητέρα', 'η μαμά', 'μαμά'],
+            q2_2: ['ο πατέρας', 'πατέρας', 'ο μπαμπάς', 'μπαμπάς'],
+            q2_3: ['ο αδελφός', 'αδελφός', 'ο αδερφός', 'αδερφός'],
+            q2_4: ['η γυναίκα', 'γυναίκα'],
+            q2_5: ['ο γιος', 'γιος'],
+            q2_6: ['η κόρη', 'κόρη'],
+            // Section A - Q3
+            q3_1: 'true', q3_2: 'true', q3_3: 'false', q3_4: 'true', q3_5: 'false', q3_6: 'true',
+            // Section B - Q1 Possessives
+            q4_1: ['μου'], q4_2: ['μας'], q4_3: ['τους'], q4_4: ['σου'],
+            q4_5: ['της'], q4_6: ['μου'], q4_7: ['μας'], q4_8: ['τους'],
+            // Section B - Q2 Error correction
+            q5_1: ['μεγάλη'], q5_2: ['ψηλός'], q5_3: ['αργός'],
+            q5_4: ['όμορφο και μεγάλο', 'όμορφο, μεγάλο'], q5_5: ['μικρό'],
+            // Section B - Q3 Adjectives
+            q6_1: ['ωραία'], q6_2: ['ψηλός'], q6_3: ['ωραίο'],
+            q6_4: ['μελαχρινός'], q6_5: ['αδύνατος'],
+            q6_6: ['νέα'], q6_7: ['αδύνατη'],
+            q6_8: ['ξανθιά', 'ξανθή'], q6_9: ['μικρή'],
+            q6_10: ['γλυκό'],
+            // Section B - Q4 Languages
+            q7_1: ['ελληνικά'], q7_2: ['γαλλικά'], q7_3: ['ιταλικά'],
+            q7_4: ['ισπανικά'], q7_5: ['Ρώσος', 'ρώσος'],
+            // Section B - Q5 Verbs
+            q8_1: ['περνάς'], q8_2: ['μιλάει', 'μιλά', 'μιλαει', 'μιλα'],
+            q8_3: ['χαιρετάμε', 'χαιρεταμε'], q8_4: ['είναι', 'ειναι'],
+            q8_5: ['έχετε', 'εχετε'], q8_6: ['είμαστε', 'ειμαστε'],
+            q8_7: ['είναι', 'ειναι'], q8_8: ['έχει', 'εχει'],
+            q8_9: ['έχει', 'εχει'], q8_10: ['είστε', 'ειστε']
+        };
+
+        function checkAnswers() {
+            let score = 0;
+            let total = 0;
+
+            // Check radio button questions
+            const radioQuestions = ['q1_1', 'q1_2', 'q1_3', 'q1_4', 'q1_5', 'q1_6', 'q1_7',
+                                   'q3_1', 'q3_2', 'q3_3', 'q3_4', 'q3_5', 'q3_6'];
+
+            radioQuestions.forEach(q => {
+                total++;
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === correctAnswers[q]) {
+                    score++;
+                    selected.parentElement.classList.add('correct');
+                } else if (selected) {
+                    selected.parentElement.classList.add('incorrect');
+                }
+            });
+
+            // Check text input questions
+            const textQuestions = ['q2_1', 'q2_2', 'q2_3', 'q2_4', 'q2_5', 'q2_6',
+                                  'q4_1', 'q4_2', 'q4_3', 'q4_4', 'q4_5', 'q4_6', 'q4_7', 'q4_8',
+                                  'q5_1', 'q5_2', 'q5_3', 'q5_4', 'q5_5',
+                                  'q6_1', 'q6_2', 'q6_3', 'q6_4', 'q6_5', 'q6_6', 'q6_7', 'q6_8', 'q6_9', 'q6_10',
+                                  'q7_1', 'q7_2', 'q7_3', 'q7_4', 'q7_5',
+                                  'q8_1', 'q8_2', 'q8_3', 'q8_4', 'q8_5', 'q8_6', 'q8_7', 'q8_8', 'q8_9', 'q8_10'];
+
+            textQuestions.forEach(q => {
+                total++;
+                const input = document.getElementById(q);
+                if (input) {
+                    const userAnswer = input.value.trim().toLowerCase();
+                    const correctOptions = correctAnswers[q].map(a => a.toLowerCase());
+
+                    if (correctOptions.includes(userAnswer)) {
+                        score++;
+                        input.classList.add('correct');
+                    } else if (userAnswer !== '') {
+                        input.classList.add('incorrect');
+                    }
+                }
+            });
+
+            const percentage = Math.round((score / total) * 100);
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.innerHTML = `Score: ${score} / ${total} (${percentage}%)`;
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showAnswers() {
+            document.querySelectorAll('.answer-key').forEach(el => {
+                el.style.display = 'block';
+            });
+        }
+
+        function resetTest() {
+            // Reset radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+                input.parentElement.classList.remove('correct', 'incorrect');
+            });
+
+            // Reset text inputs
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+
+            // Reset textarea
+            document.getElementById('writing1').value = '';
+
+            // Hide answers and score
+            document.querySelectorAll('.answer-key').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.getElementById('scoreDisplay').style.display = 'none';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
